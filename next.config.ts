@@ -1,7 +1,10 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: {
+    appIsrStatus: true,
+    buildActivityPosition: 'bottom-right',
+  },
 };
 
 export default nextConfig;
