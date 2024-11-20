@@ -42,9 +42,8 @@ model Store {
   description String
   category    StoreCategory
 
-  StoreAdmin   StoreAdmin?
-  storeAdminId String?
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  StoreAdmin StoreAdmin?
 }

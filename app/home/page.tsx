@@ -1,34 +1,20 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function HomePage() {
-  const [inputValue, setInputValue] = useState('');
-  const router = useRouter();
-
-  const handleRedirect = (e: any) => {
-    e.preventDefault();
-    if (inputValue.trim()) {
-      router.replace(
-        process.env.NEXT_PUBLIC_VERCEL_ENV
-          ? `https://${inputValue}`
-          : `http://${inputValue}.localhost:3000`
-      );
-    }
-  };
-
   return (
     <div>
-      <form onSubmit={handleRedirect}>
-        <input
-          type="text"
-          placeholder="Enter subdomain"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button type="submit">Go</button>
-      </form>
+      <h1>Home Page</h1>
+      <div>
+        <Button>
+          <Link href={"/explore"}>Explore products</Link>
+        </Button>
+        <Button>
+          <Link href={"/create"}>Create store</Link>
+        </Button>
+      </div>
     </div>
   );
 }
