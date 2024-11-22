@@ -1,10 +1,13 @@
 "use server";
 
+import { createAdminUser } from "@/actions/auth";
+
 import prismadb from "@/lib/prismadb";
-import { StoreCategory } from "@prisma/client";
 
 import { z } from "zod";
+
 import { StoreSchema } from "@/schema";
+import { StoreCategory } from "@prisma/client";
 
 export const createStore = async (values: z.infer<typeof StoreSchema>) => {
   try {
@@ -14,7 +17,14 @@ export const createStore = async (values: z.infer<typeof StoreSchema>) => {
       throw new Error("Data is invalid");
     }
 
-    const hashedPassword = await Bun.password.hash(values.admin.password);
+    const user = await createAdminUser({
+      email: values.admin.email,
+      password: values.admin.password,
+    });
+
+    if (!user) {
+      throw new Error("Failed to create admin user");
+    }
 
     const store = await prismadb.store.create({
       data: {
@@ -22,19 +32,12 @@ export const createStore = async (values: z.infer<typeof StoreSchema>) => {
         domain: values.domain,
         description: values.description,
         category: values.category as StoreCategory,
-        StoreAdmin: {
-          create: {
-            username: values.admin.username,
-            email: values.admin.email,
-            password: hashedPassword,
-          },
-        },
+        adminId: user!.id as string,
       },
     });
 
     return { success: true, store };
   } catch (error: any) {
-    console.error(error);
     return { error: error.message };
   }
 };

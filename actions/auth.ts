@@ -1,46 +1,74 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-
+import prismadb from "@/lib/prismadb";
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
-  const supabase = await createClient();
+import { z } from "zod";
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+import { LoginSchema } from "@/schema";
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+export async function login(
+  values: z.infer<typeof LoginSchema>,
+  storeId: string,
+) {
+  try {
+    const supabase = await createClient();
 
-  if (error) {
-    redirect("/error");
+    const validatedFields = LoginSchema.safeParse(values);
+
+    if (!validatedFields.success) {
+      throw new Error("Data is invalid");
+    }
+
+    const { error, data } = await supabase.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    // Check if user is admin of the store
+    const store = await prismadb.store.findFirst({
+      where: {
+        id: storeId,
+      },
+    });
+
+    if (store?.adminId !== data?.user?.id) {
+      throw new Error("You are not authorized to access this store");
+    }
+
+    if (!store) {
+      throw new Error("Store not found");
+    }
+
+    const redirectUrl = process.env.NEXT_PUBLIC_VERCEL_ENV
+      ? `https://${store.domain}/admin/dashboard`
+      : `http://${store.domain}.localhost:3000/admin/dashboard`;
+
+    return { success: true, redirectUrl };
+  } catch (error: any) {
+    console.error("An error occurred during login action: ", error);
+    return { error: error.message };
   }
-
-  revalidatePath("/", "layout");
-  redirect("/");
 }
 
-export async function signup(formData: FormData) {
+export async function createAdminUser(values: {
+  email: string;
+  password: string;
+}) {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const { error } = await supabase.auth.signUp(data);
+  const { error, data } = await supabase.auth.signUp({
+    email: values.email,
+    password: values.password,
+  });
 
   if (error) {
-    redirect("/error");
+    throw new Error(error.message);
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  return data.user;
 }

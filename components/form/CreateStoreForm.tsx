@@ -49,7 +49,6 @@ export function CreateStoreFrom() {
       name: "",
       domain: "",
       admin: {
-        username: "test",
         email: "test@test.pl",
         password: "test",
       },
@@ -71,7 +70,7 @@ export function CreateStoreFrom() {
     // Validate step 2 fields: admin username, email, password
     if (step === 2) {
       const { admin } = values;
-      if (!admin?.username || !admin?.email || !admin?.password) {
+      if (!admin?.email || !admin?.password) {
         isValid = false;
       }
     }
@@ -221,25 +220,6 @@ export function CreateStoreFrom() {
         <div className="w-full">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              {/* Admin Username */}
-              <FormField
-                control={form.control}
-                name="admin.username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Admin Username</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter a username for the admin"
-                        {...field}
-                        disabled={isSubmitting}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               {/* Admin Email */}
               <FormField
                 control={form.control}

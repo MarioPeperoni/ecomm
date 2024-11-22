@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
-import { isAllowedRoute, routes } from "./routes";
 
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
@@ -33,16 +32,27 @@ export default async function middleware(req: NextRequest) {
   );
 
   const { pathname } = req.nextUrl;
+  // Check if the user is accessing a restricted route
+  const isRestrictedRoute = pathname.startsWith("/admin");
 
-  if (!isAllowedRoute(pathname)) {
+  // If on a restricted route, check user authentication
+  if (isRestrictedRoute) {
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
     if (!user) {
+      // Redirect to login if the user is not authenticated
       const loginUrl = req.nextUrl.clone();
-      loginUrl.pathname = routes.public.login;
+      loginUrl.pathname = "/admin";
       return NextResponse.redirect(loginUrl);
+    }
+
+    // Redirect from login to admin dashboard if already logged in
+    if (pathname === "/admin") {
+      const dashboardUrl = req.nextUrl.clone();
+      dashboardUrl.pathname = "/admin/dashboard";
+      return NextResponse.redirect(dashboardUrl);
     }
   }
 

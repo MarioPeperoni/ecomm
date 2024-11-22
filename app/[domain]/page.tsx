@@ -1,15 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useStore } from "@/hooks/store-context";
 
 export default function DomainTestPage() {
-  const [subdomain, setSubdomain] = useState('');
-  useEffect(() => {
-    const hostname = window.location.hostname;
-    const parts = hostname.split('.');
+  const store = useStore();
 
-    setSubdomain(parts[0]);
-  });
-
-  return <div>Witaj na stronie {subdomain}!</div>;
+  return <div>Witaj w sklepie{store.name}!</div>;
 }
