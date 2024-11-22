@@ -41,7 +41,7 @@ export default async function middleware(req: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser();
 
-    if (!user) {
+    if (!user && pathname !== "/admin") {
       // Redirect to login if the user is not authenticated
       const loginUrl = req.nextUrl.clone();
       loginUrl.pathname = "/admin";
@@ -49,7 +49,7 @@ export default async function middleware(req: NextRequest) {
     }
 
     // Redirect from login to admin dashboard if already logged in
-    if (pathname === "/admin") {
+    if (pathname === "/admin" && user) {
       const dashboardUrl = req.nextUrl.clone();
       dashboardUrl.pathname = "/admin/dashboard";
       return NextResponse.redirect(dashboardUrl);

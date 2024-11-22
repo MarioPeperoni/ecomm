@@ -1,6 +1,10 @@
 import prismadb from "@/lib/prismadb";
 
 import { StoreProvider } from "@/hooks/use-store";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { UserProvider } from "@/hooks/use-user";
+
+import AdminSidebar from "@/components/admin/sidebar/AdminSidebar";
 
 export default async function DomainLayout({
   children,
@@ -23,5 +27,14 @@ export default async function DomainLayout({
     return <div>Store not found</div>;
   }
 
-  return <StoreProvider store={store}>{children}</StoreProvider>;
+  return (
+    <StoreProvider store={store}>
+      <UserProvider>
+        <SidebarProvider>
+          <AdminSidebar />
+          {children}
+        </SidebarProvider>
+      </UserProvider>
+    </StoreProvider>
+  );
 }

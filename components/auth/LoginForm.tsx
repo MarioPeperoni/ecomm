@@ -5,7 +5,7 @@ import { login } from "@/actions/auth";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-import { useStore } from "@/hooks/store-context";
+import { useStore } from "@/hooks/use-store";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

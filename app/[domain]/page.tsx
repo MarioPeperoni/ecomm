@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/hooks/store-context";
+import { useStore } from "@/hooks/use-store";
 
 export default function DomainTestPage() {
   const store = useStore();

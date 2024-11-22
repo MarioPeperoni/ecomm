@@ -72,3 +72,9 @@ export async function createAdminUser(values: {
 
   return data.user;
 }
+
+export async function logout() {
+  const supabase = await createClient();
+
+  await supabase.auth.signOut();
+}
