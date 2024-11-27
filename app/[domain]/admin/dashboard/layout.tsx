@@ -32,7 +32,7 @@ export default async function DomainLayout({
       <UserProvider>
         <SidebarProvider>
           <AdminSidebar />
-          {children}
+          <main className="w-full bg-background">{children}</main>
         </SidebarProvider>
       </UserProvider>
     </StoreProvider>

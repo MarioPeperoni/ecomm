@@ -15,3 +15,10 @@ export const StoreSchema = z.object({
     password: z.string().min(1),
   }),
 });
+
+export const SettingsSchema = z.object({
+  name: z.string().min(1),
+  domain: z.string().min(1),
+  description: z.string().min(1),
+  category: z.string().min(1),
+});

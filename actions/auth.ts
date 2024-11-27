@@ -59,18 +59,23 @@ export async function createAdminUser(values: {
   email: string;
   password: string;
 }) {
-  const supabase = await createClient();
+  try {
+    const supabase = await createClient();
 
-  const { error, data } = await supabase.auth.signUp({
-    email: values.email,
-    password: values.password,
-  });
+    const { error, data } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+    });
 
-  if (error) {
-    throw new Error(error.message);
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data.user;
+  } catch (error: any) {
+    console.error("An error occurred during createAdminUser action: ", error);
+    return null;
   }
-
-  return data.user;
 }
 
 export async function logout() {

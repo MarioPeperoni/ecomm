@@ -90,7 +90,7 @@ export function CreateStoreFrom() {
         }
         if (response.error) {
           toast({
-            title: "There was an error creating the store",
+            title: "An error occurred during store creation",
             description: response.error,
             variant: "destructive",
           });
