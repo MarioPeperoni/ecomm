@@ -1,8 +1,7 @@
 import { Billboard, Category, Store } from "@prisma/client";
 
 export type StoreExtended = Store & {
-  Billboards: Billboard[];
-  Categories: CategoryExtended[];
+  Categories: Category[];
 };
 
 export type CategoryExtended = Category & {

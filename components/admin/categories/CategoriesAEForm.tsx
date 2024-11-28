@@ -2,8 +2,10 @@
 
 import { createCategory, updateCategory } from "@/actions/category";
 
+import getBillboards from "@/data/bilboard";
+
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,15 +33,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
+
+import { Billboard } from "@prisma/client";
 
 export default function CategoryAEForm({
   category,
   closeDialog,
 }: CategoryAEProps) {
   const [isSubmitting, startSubmitting] = useTransition();
+  const [isFetching, startFetching] = useTransition();
 
-  const store = useStore();
+  const [billboards, setBillboards] = useState<Billboard[]>([]);
+
   const router = useRouter();
+  const store = useStore();
+
+  useEffect(() => {
+    // Fetch billboards to populate the select dropdown
+    const fetchBillboards = async () => {
+      const billboards = await getBillboards();
+      setBillboards(billboards);
+    };
+
+    startFetching(() => {
+      fetchBillboards();
+    });
+  }, []);
 
   const form = useForm<z.infer<typeof CategorySchema>>({
     resolver: zodResolver(CategorySchema),
@@ -128,14 +148,19 @@ export default function CategoryAEForm({
                     <SelectValue placeholder="Pick banner for category" />
                   </SelectTrigger>
                   <SelectContent>
-                    {store.Billboards.length === 0 && (
+                    {billboards.length === 0 && !isFetching && (
                       <div className="flex justify-center">
                         <p className="select-none p-2 text-sm text-muted-foreground">
                           Your store does not have any billboards
                         </p>
                       </div>
                     )}
-                    {store.Billboards.map((billboard) => (
+                    {isFetching && (
+                      <div className="flex justify-center py-5">
+                        <LoadingSpinner size={40} />
+                      </div>
+                    )}
+                    {billboards.map((billboard) => (
                       <SelectItem key={billboard.id} value={billboard.id}>
                         {billboard.label}
                       </SelectItem>

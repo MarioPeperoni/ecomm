@@ -22,12 +22,7 @@ export default async function DomainLayout({
       domain: domain,
     },
     include: {
-      Categories: {
-        include: {
-          Billboard: true,
-        },
-      },
-      Billboards: true,
+      Categories: true,
     },
   });
 

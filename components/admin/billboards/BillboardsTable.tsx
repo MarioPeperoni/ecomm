@@ -1,14 +1,9 @@
-"use client";
-
-import { useStore } from "@/hooks/use-store";
-
 import { BillboardColumns } from "@/components/admin/billboards/BillboardsTableColumns";
 import { DataTable } from "@/components/admin/DataTable";
 
-export default function BillboardsTable() {
-  const store = useStore();
+import { Billboard } from "@prisma/client";
 
-  const data = store.Billboards;
+export default function BillboardsTable({ data }: { data: Billboard[] }) {
   const columns = BillboardColumns;
 
   return (

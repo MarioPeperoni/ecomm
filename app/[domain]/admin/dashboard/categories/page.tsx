@@ -1,8 +1,12 @@
+import getCategories from "@/data/category";
+
 import AddNewCategoryDialog from "@/components/admin/categories/AddNewCategoryDialog";
 import CategoriesTable from "@/components/admin/categories/CategoriesTable";
 import DashHeader from "@/components/admin/dashboard/DashHeader";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const categories = await getCategories();
+
   return (
     <>
       <DashHeader
@@ -11,7 +15,7 @@ export default function CategoriesPage() {
         component={<AddNewCategoryDialog />}
       />
       <section className="mx-2">
-        <CategoriesTable />
+        <CategoriesTable data={categories} />
       </section>
     </>
   );

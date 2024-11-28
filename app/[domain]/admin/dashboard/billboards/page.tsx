@@ -1,8 +1,12 @@
+import getBillboards from "@/data/bilboard";
+
 import AddNewBillboardDialog from "@/components/admin/billboards/AddNewBillboardDialog";
 import BillboardsTable from "@/components/admin/billboards/BillboardsTable";
 import DashHeader from "@/components/admin/dashboard/DashHeader";
 
-export default function BillboardsPage() {
+export default async function BillboardsPage() {
+  const billboards = await getBillboards();
+
   return (
     <div>
       <DashHeader
@@ -11,7 +15,7 @@ export default function BillboardsPage() {
         component={<AddNewBillboardDialog />}
       />
       <section className="mx-2">
-        <BillboardsTable />
+        <BillboardsTable data={billboards} />
       </section>
     </div>
   );

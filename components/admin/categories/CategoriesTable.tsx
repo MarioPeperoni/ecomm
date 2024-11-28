@@ -1,14 +1,13 @@
-"use client";
-
-import { useStore } from "@/hooks/use-store";
-
 import { CategoryColumns } from "@/components/admin/categories/CategoryTableColumns";
 import { DataTable } from "@/components/admin/DataTable";
 
-export default function CategoriesTable() {
-  const store = useStore();
+import { CategoryExtended } from "@/types/storeExtended";
 
-  const data = store.Categories;
+export default function CategoriesTable({
+  data,
+}: {
+  data: CategoryExtended[];
+}) {
   const columns = CategoryColumns;
 
   return <DataTable data={data} columns={columns} />;
