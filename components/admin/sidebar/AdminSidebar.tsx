@@ -20,7 +20,13 @@ import {
 import ShopBadge from "@/components/admin/sidebar/ShopBadge";
 import UserBadge from "@/components/admin/sidebar/UserBadge";
 
-import { Cog, Home, PackageOpen, ShoppingBasket } from "lucide-react";
+import {
+  Cog,
+  GalleryThumbnails,
+  Home,
+  PackageOpen,
+  ShoppingBasket,
+} from "lucide-react";
 
 const pages = [
   {
@@ -37,6 +43,11 @@ const pages = [
     title: "Orders",
     href: "/admin/dashboard/orders",
     Icon: PackageOpen,
+  },
+  {
+    title: "Billboards",
+    href: "/admin/dashboard/billboards",
+    Icon: GalleryThumbnails,
   },
   {
     title: "Settings",

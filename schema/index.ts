@@ -22,3 +22,10 @@ export const SettingsSchema = z.object({
   description: z.string().min(1),
   category: z.string().min(1),
 });
+
+export const BillboardSchema = z.object({
+  label: z.string().min(1),
+  text: z.string(),
+  fontName: z.string().min(1),
+  imageUrl: z.string(),
+});

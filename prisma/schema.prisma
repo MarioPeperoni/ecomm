@@ -33,4 +33,29 @@ model Store {
   updatedAt DateTime @updatedAt
 
   adminId String
+
+  Billboards Billboard[] @relation("StoreToBillboard")
+}
+
+enum FontName {
+  ARIAL
+  TIMES_NEW_ROMAN
+  COMIC_SANS
+}
+
+model Billboard {
+  id String @id @default(uuid())
+
+  storeId String
+  Store   Store  @relation("StoreToBillboard", fields: [storeId], references: [id])
+
+  label    String
+  text     String?
+  fontName FontName
+  imageUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([storeId])
 }

@@ -21,6 +21,9 @@ export default async function DomainLayout({
     where: {
       domain: domain,
     },
+    include: {
+      Billboards: true,
+    },
   });
 
   if (!store) {

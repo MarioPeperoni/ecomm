@@ -2,9 +2,9 @@
 
 import React, { createContext, useContext } from "react";
 
-import { Store } from "@prisma/client";
+import { StoreExtended } from "@/types/storeExtended";
 
-const StoreContext = createContext<Store | null>(null);
+const StoreContext = createContext<StoreExtended | null>(null);
 
 export const useStore = () => {
   const context = useContext(StoreContext);
@@ -18,7 +18,7 @@ export const StoreProvider = ({
   store,
   children,
 }: {
-  store: Store;
+  store: StoreExtended;
   children: React.ReactNode;
 }) => {
   return (
