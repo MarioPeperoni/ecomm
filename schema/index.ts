@@ -25,12 +25,12 @@ export const SettingsSchema = z.object({
 
 export const BillboardSchema = z.object({
   label: z.string().min(1),
-  text: z.string(),
+  text: z.string().optional(),
   fontName: z.string().min(1),
-  imageUrl: z.string(),
+  imageUrl: z.string().optional(),
 });
 
 export const CategorySchema = z.object({
   name: z.string().min(1),
-  billboardId: z.string(),
+  billboardId: z.string().optional(),
 });

@@ -82,7 +82,7 @@ export const updateCategory = async (
       },
     });
 
-    if (existingCategory) {
+    if (existingCategory && existingCategory.id !== categoryId) {
       throw new Error("A category with the same name already exists");
     }
 
