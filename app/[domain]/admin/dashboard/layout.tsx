@@ -11,7 +11,7 @@ export default async function DomainLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { domain: string };
+  params: Promise<{ domain: string }>;
 }) {
   const awaitedParams = await params;
 
