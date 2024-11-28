@@ -12,6 +12,7 @@ import { Trash2 } from "lucide-react";
 import { ControllerRenderProps } from "react-hook-form";
 
 interface BillboardImageUploadProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<any, string>;
 }
 

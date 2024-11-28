@@ -13,7 +13,7 @@ export default async function DomainLayout({
   children: React.ReactNode;
   params: { domain: string };
 }) {
-  let awaitedParams = await params;
+  const awaitedParams = await params;
 
   const domain = awaitedParams.domain.split(".")[0];
 

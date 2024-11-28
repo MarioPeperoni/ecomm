@@ -24,6 +24,7 @@ import {
   Cog,
   GalleryThumbnails,
   Home,
+  LibraryBig,
   PackageOpen,
   ShoppingBasket,
 } from "lucide-react";
@@ -43,6 +44,11 @@ const pages = [
     title: "Orders",
     href: "/admin/dashboard/orders",
     Icon: PackageOpen,
+  },
+  {
+    title: "Categories",
+    href: "/admin/dashboard/categories",
+    Icon: LibraryBig,
   },
   {
     title: "Billboards",

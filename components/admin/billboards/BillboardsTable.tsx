@@ -19,7 +19,7 @@ import {
 
 import { BillboardColumns } from "@/components/admin/billboards/BillboardsTableColumns";
 
-export default function BillboardsTable<TData, TValue>() {
+export default function BillboardsTable() {
   const store = useStore();
 
   const data = store.Billboards;
@@ -73,7 +73,7 @@ export default function BillboardsTable<TData, TValue>() {
                   <p className="text-lg font-semibold">
                     Your store does not have any configured billboards
                   </p>
-                  <p>Press "Add New" button to create billboard</p>
+                  <p>Press &quot;Add New&quot; button to create billboard</p>
                 </div>
               </TableCell>
             </TableRow>

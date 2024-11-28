@@ -182,8 +182,10 @@ export default function BillboardAEForm({
                 <BillboardImageUpload field={field} />
               </FormControl>
               <FormDescription>
-                If you don't upload an image, the billboard will use primary
-                color as background.
+                <p>
+                  If you don&apos;t upload an image, the billboard will use
+                  primary color as background.
+                </p>
               </FormDescription>
             </FormItem>
           )}

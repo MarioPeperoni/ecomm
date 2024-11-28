@@ -13,7 +13,7 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
-    .middleware(async ({ req }) => {
+    .middleware(async () => {
       const supabase = createClient();
       const { data } = await (await supabase).auth.getUser();
 
