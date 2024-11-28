@@ -5,11 +5,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import BillboardAEDialogContent from "@/components/admin/billboards/BillboardAEDialogContent";
+import CategoryAEDialogContent from "@/components/admin/categories/CategoryAEDialogContent";
 
 import { Plus } from "lucide-react";
 
-export default function AddNewBillboardDialog() {
+export default function AddNewCategoryDialog() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,8 +20,8 @@ export default function AddNewBillboardDialog() {
           Add New
         </Button>
       </DialogTrigger>
-      <BillboardAEDialogContent
-        billboard={null}
+      <CategoryAEDialogContent
+        category={null}
         closeDialog={() => setIsOpen(true)}
       />
     </Dialog>

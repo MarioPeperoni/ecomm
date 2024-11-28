@@ -35,6 +35,7 @@ model Store {
   adminId String
 
   Billboards Billboard[] @relation("StoreToBillboard")
+  Categories Category[]  @relation("StoreToCategory")
 }
 
 enum FontName {
@@ -57,5 +58,22 @@ model Billboard {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([storeId])
+  Category Category[]
+}
+
+model Category {
+  id String @id @default(uuid())
+
+  name String
+
+  storeId String
+  Store   Store  @relation("StoreToCategory", fields: [storeId], references: [id])
+
+  billboardId String?
+  Billboard   Billboard? @relation(fields: [billboardId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Implement to category has child category
 }

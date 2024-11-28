@@ -62,10 +62,10 @@ export default function BillboardAEForm({
   });
 
   const onSubmit = (values: z.infer<typeof BillboardSchema>) => {
-    startSubmitting(() => {
+    startSubmitting(async () => {
       if (!billboard) {
         // Create
-        createBillboard(values, store.id).then((res) => {
+        await createBillboard(values, store.id).then((res) => {
           if (res.success) {
             toast({
               title: "Billboard created",
@@ -77,12 +77,13 @@ export default function BillboardAEForm({
             toast({
               title: "An error occurred during billboard creation",
               description: res.error,
+              variant: "destructive",
             });
           }
         });
       } else {
         // Update
-        updateBillboard(values, store.id, billboard.id).then((res) => {
+        await updateBillboard(values, store.id, billboard.id).then((res) => {
           if (res.success) {
             toast({
               title: "Billboard updated",
@@ -94,6 +95,7 @@ export default function BillboardAEForm({
             toast({
               title: "An error occurred during billboard update",
               description: res.error,
+              variant: "destructive",
             });
           }
         });
@@ -182,10 +184,8 @@ export default function BillboardAEForm({
                 <BillboardImageUpload field={field} />
               </FormControl>
               <FormDescription>
-                <p>
-                  If you don&apos;t upload an image, the billboard will use
-                  primary color as background.
-                </p>
+                If you don&apos;t upload an image, the billboard will use
+                primary color as background.
               </FormDescription>
             </FormItem>
           )}

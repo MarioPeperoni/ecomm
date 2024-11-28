@@ -29,3 +29,8 @@ export const BillboardSchema = z.object({
   fontName: z.string().min(1),
   imageUrl: z.string(),
 });
+
+export const CategorySchema = z.object({
+  name: z.string().min(1),
+  billboardId: z.string(),
+});
