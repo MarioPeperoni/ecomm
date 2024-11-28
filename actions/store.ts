@@ -14,7 +14,6 @@ import { StoreCategory } from "@prisma/client";
  * Creates a new store with the provided values.
  *
  * @param values - The values to create the store with, inferred from `StoreSchema`.
- * @returns An object containing either the created store on success or an error message on failure.
  */
 export const createStore = async (values: z.infer<typeof StoreSchema>) => {
   try {
@@ -55,7 +54,6 @@ export const createStore = async (values: z.infer<typeof StoreSchema>) => {
  *
  * @param storeId - The ID of the store to update.
  * @param values - The new values to update the store with, validated against the SettingsSchema.
- * @returns An object indicating success or an error message. If the domain has changed, includes a redirect URL.
  *
  * @throws Will throw an error if the data is invalid, the user is not found, the store is not found, or the user is not authorized to update the store.
  */
@@ -64,30 +62,11 @@ export const updateStore = async (
   values: z.infer<typeof SettingsSchema>,
 ) => {
   try {
-    const supabase = await createClient();
+    const store = await initStoreUpdate(storeId);
     const validatedFields = SettingsSchema.safeParse(values);
 
     if (!validatedFields.success) {
       throw new Error("Data is invalid");
-    }
-
-    const { data } = await supabase.auth.getUser();
-    const user = data.user;
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    const store = await prismadb.store.findUnique({
-      where: { id: storeId },
-    });
-
-    if (!store) {
-      throw new Error("Store not found");
-    }
-
-    if (store.adminId !== user.id) {
-      throw new Error("You are not authorized to update this store");
     }
 
     await prismadb.store.update({
@@ -110,34 +89,14 @@ export const updateStore = async (
 /**
  * Deletes a store by its ID.
  *
- * @param id - The ID of the store to delete.
- * @returns An object indicating the success of the operation or an error message.
+ * @param storeId - The ID of the store to delete.
  */
-export const deleteStore = async (id: string) => {
+export const deleteStore = async (storeId: string) => {
   try {
-    const supabase = await createClient();
-
-    const store = await prismadb.store.findUnique({
-      where: { id },
-    });
-
-    if (!store) {
-      throw new Error("Store not found");
-    }
-
-    const { data } = await supabase.auth.getUser();
-    const user = data.user;
-
-    if (!user) {
-      throw new Error("User not found");
-    }
-
-    if (store.adminId !== user.id) {
-      throw new Error("You are not authorized to delete this store");
-    }
+    await initStoreUpdate(storeId);
 
     await prismadb.store.delete({
-      where: { id },
+      where: { id: storeId },
     });
 
     return { success: true };
@@ -145,4 +104,37 @@ export const deleteStore = async (id: string) => {
     console.error("An error occurred during deleteStore action: ", error);
     return { error: error.message };
   }
+};
+/**
+ * Initializes the store update process by verifying the current user and their authorization.
+ *
+ * @param storeId - The ID of the store to be updated.
+ * @returns A promise that resolves to the store object if the user is authorized.
+ * @throws Will throw an error if the user is not found, the store is not found, or the user is not authorized to make changes to the store.
+ */
+export const initStoreUpdate = async (storeId: string) => {
+  const supabase = await createClient();
+
+  // Get the current user
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data.user) {
+    throw new Error(error?.message || "User not found");
+  }
+
+  const user = data.user;
+
+  // Get the store and verify the admin
+  const store = await prismadb.store.findUnique({
+    where: { id: storeId },
+  });
+
+  if (!store) {
+    throw new Error("Store not found");
+  }
+
+  if (store.adminId !== user.id) {
+    throw new Error("You are not authorized to make changes to this store");
+  }
+
+  return store;
 };
