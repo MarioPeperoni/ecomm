@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DialogContent,
   DialogDescription,
@@ -9,12 +11,12 @@ import CategoryAEForm from "@/components/admin/categories/CategoriesAEForm";
 import { Category } from "@prisma/client";
 
 export interface CategoryAEProps {
-  category: Category | null;
+  item: Category | null;
   closeDialog: () => void;
 }
 
 export default function CategoryAEDialogContent({
-  category,
+  item: category,
   closeDialog,
 }: CategoryAEProps) {
   return (
@@ -25,7 +27,7 @@ export default function CategoryAEDialogContent({
       <DialogDescription>
         Configure the category settings below.
       </DialogDescription>
-      <CategoryAEForm category={category} closeDialog={closeDialog} />
+      <CategoryAEForm item={category} closeDialog={closeDialog} />
     </DialogContent>
   );
 }

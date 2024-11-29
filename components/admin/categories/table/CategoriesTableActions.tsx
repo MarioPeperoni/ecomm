@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import CategoryAEDialogContent from "@/components/admin/categories/dialog/CategoryAEDialogContent";
+import CategoryAEDialogContent from "@/components/admin/categories/CategoryAEDialogContent";
 
 import { Category } from "@prisma/client";
 
@@ -69,7 +69,7 @@ export default function CategoryTableActions({
           </Button>
         </DialogTrigger>
         <CategoryAEDialogContent
-          category={category}
+          item={category}
           closeDialog={() => setIsOpen(false)}
         />
       </Dialog>

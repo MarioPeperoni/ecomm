@@ -15,7 +15,7 @@ import { CategorySchema } from "@/schema";
 import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
-import { CategoryAEProps } from "@/components/admin/categories/dialog/CategoryAEDialogContent";
+import { CategoryAEProps } from "@/components/admin/categories/CategoryAEDialogContent";
 import {
   Form,
   FormControl,
@@ -38,7 +38,7 @@ import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import { Billboard } from "@prisma/client";
 
 export default function CategoryAEForm({
-  category,
+  item: category,
   closeDialog,
 }: CategoryAEProps) {
   const [isSubmitting, startSubmitting] = useTransition();

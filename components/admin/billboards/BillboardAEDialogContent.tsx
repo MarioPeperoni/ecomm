@@ -1,3 +1,5 @@
+"use client";
+
 import {
   DialogContent,
   DialogDescription,
@@ -9,12 +11,12 @@ import BillboardAEForm from "@/components/admin/billboards//BillboardAEForm";
 import { Billboard } from "@prisma/client";
 
 interface BillboardAEProps {
-  billboard: Billboard | null;
+  item: Billboard | null;
   closeDialog: () => void;
 }
 
 export default function BillboardAEDialogContent({
-  billboard,
+  item: billboard,
   closeDialog,
 }: BillboardAEProps) {
   return (

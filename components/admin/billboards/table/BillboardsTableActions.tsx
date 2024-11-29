@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import BillboardAEDialogContent from "@/components/admin/billboards/dialog/BillboardAEDialogContent";
+import BillboardAEDialogContent from "@/components/admin/billboards/BillboardAEDialogContent";
 
 import { Billboard } from "@prisma/client";
 
@@ -67,7 +67,7 @@ export default function BillboardsTableActions({
           </Button>
         </DialogTrigger>
         <BillboardAEDialogContent
-          billboard={billboard}
+          item={billboard}
           closeDialog={() => setIsOpen(false)}
         />
       </Dialog>

@@ -5,11 +5,18 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import CategoryAEDialogContent from "@/components/admin/categories/dialog/CategoryAEDialogContent";
-
 import { Plus } from "lucide-react";
 
-export default function AddNewCategoryDialog() {
+type DialogContentProps = {
+  item: any;
+  closeDialog: () => void;
+};
+
+interface AddNewDialogProps {
+  DialogContent: React.ComponentType<DialogContentProps>;
+}
+
+export default function AddNewDialog({ DialogContent }: AddNewDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -20,10 +27,7 @@ export default function AddNewCategoryDialog() {
           Add New
         </Button>
       </DialogTrigger>
-      <CategoryAEDialogContent
-        category={null}
-        closeDialog={() => setIsOpen(true)}
-      />
+      <DialogContent item={null} closeDialog={() => setIsOpen(false)} />
     </Dialog>
   );
 }
