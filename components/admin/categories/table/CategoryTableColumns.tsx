@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import CategoryTableActions from "@/components/admin/categories/CategoriesTableActions";
+import CategoryTableActions from "@/components/admin/categories/table/CategoriesTableActions";
 
 import { CategoryExtended } from "@/types/storeExtended";
 

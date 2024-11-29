@@ -4,7 +4,7 @@ import { enUS } from "date-fns/locale";
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import BillboardsTableActions from "@/components/admin/billboards/BillboardsTableActions";
+import BillboardsTableActions from "@/components/admin/billboards/table/BillboardsTableActions";
 
 import { Billboard } from "@prisma/client";
 

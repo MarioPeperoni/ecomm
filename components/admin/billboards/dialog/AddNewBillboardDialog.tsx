@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import BillboardAEDialogContent from "@/components/admin/billboards/BillboardAEDialogContent";
+import BillboardAEDialogContent from "@/components/admin/billboards/dialog/BillboardAEDialogContent";
 
 import { Plus } from "lucide-react";
 

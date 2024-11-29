@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import CategoryAEDialogContent from "@/components/admin/categories/CategoryAEDialogContent";
+import CategoryAEDialogContent from "@/components/admin/categories/dialog/CategoryAEDialogContent";
 
 import { Plus } from "lucide-react";
 

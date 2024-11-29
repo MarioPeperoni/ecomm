@@ -1,4 +1,4 @@
-import { BillboardColumns } from "@/components/admin/billboards/BillboardsTableColumns";
+import { BillboardColumns } from "@/components/admin/billboards/table/BillboardsTableColumns";
 import { DataTable } from "@/components/admin/DataTable";
 
 import { Billboard } from "@prisma/client";

@@ -1,7 +1,7 @@
 import getCategories from "@/data/category";
 
-import AddNewCategoryDialog from "@/components/admin/categories/AddNewCategoryDialog";
-import CategoriesTable from "@/components/admin/categories/CategoriesTable";
+import AddNewCategoryDialog from "@/components/admin/categories/dialog/AddNewCategoryDialog";
+import CategoriesTable from "@/components/admin/categories/table/CategoriesTable";
 import DashHeader from "@/components/admin/dashboard/DashHeader";
 
 export default async function CategoriesPage() {

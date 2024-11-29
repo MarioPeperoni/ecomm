@@ -1,7 +1,7 @@
 import getBillboards from "@/data/bilboard";
 
-import AddNewBillboardDialog from "@/components/admin/billboards/AddNewBillboardDialog";
-import BillboardsTable from "@/components/admin/billboards/BillboardsTable";
+import AddNewBillboardDialog from "@/components/admin/billboards/dialog/AddNewBillboardDialog";
+import BillboardsTable from "@/components/admin/billboards/table/BillboardsTable";
 import DashHeader from "@/components/admin/dashboard/DashHeader";
 
 export default async function BillboardsPage() {

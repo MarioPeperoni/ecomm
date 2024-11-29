@@ -15,7 +15,7 @@ import { CategorySchema } from "@/schema";
 import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
-import { CategoryAEProps } from "@/components/admin/categories/CategoryAEDialogContent";
+import { CategoryAEProps } from "@/components/admin/categories/dialog/CategoryAEDialogContent";
 import {
   Form,
   FormControl,

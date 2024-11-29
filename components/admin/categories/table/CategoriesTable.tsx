@@ -1,4 +1,4 @@
-import { CategoryColumns } from "@/components/admin/categories/CategoryTableColumns";
+import { CategoryColumns } from "@/components/admin/categories/table/CategoryTableColumns";
 import { DataTable } from "@/components/admin/DataTable";
 
 import { CategoryExtended } from "@/types/storeExtended";
