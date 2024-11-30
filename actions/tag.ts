@@ -132,24 +132,30 @@ export const updateTagGroup = async (
       },
     });
 
+    // Get tags names from values.tags that are not in the tagObjectsRef
+    const newTags = values.tags.filter(
+      (tag) => !tagObjectsRef.map((t) => t.name).includes(tag),
+    );
+
+    for (const tag of newTags) {
+      await prismadb.tag.create({
+        data: {
+          name: tag,
+          index: values.tags.indexOf(tag),
+          TagGroup: {
+            connect: {
+              id: groupTagId,
+            },
+          },
+        },
+      });
+    }
+
     // Compare the updated tags with the existing tags by IDs, make changes accordingly
     for (const tag of tagObjectsRef) {
       const dbTag = dbTags.find((t) => t.id === tag.id);
 
-      if (!dbTag) {
-        // Create new tag
-        await prismadb.tag.create({
-          data: {
-            name: tag.name,
-            index: tag.index,
-            TagGroup: {
-              connect: {
-                id: groupTagId,
-              },
-            },
-          },
-        });
-      } else {
+      if (dbTag) {
         // Update existing tag
         await prismadb.tag.update({
           where: {
