@@ -11,6 +11,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -26,39 +27,76 @@ import {
   Home,
   LibraryBig,
   PackageOpen,
+  PaintBucket,
   ShoppingBasket,
+  Tag,
 } from "lucide-react";
 
 const pages = [
   {
-    title: "Home",
-    href: "/admin/dashboard",
-    Icon: Home,
+    group: "Dashboard",
+    items: [
+      {
+        title: "Home",
+        href: "/admin/dashboard",
+        Icon: Home,
+      },
+    ],
   },
   {
-    title: "Products",
-    href: "/admin/dashboard/products",
-    Icon: ShoppingBasket,
+    group: "Stock",
+    items: [
+      {
+        title: "Products",
+        href: "/admin/dashboard/products",
+        Icon: ShoppingBasket,
+      },
+      {
+        title: "Orders",
+        href: "/admin/dashboard/orders",
+        Icon: PackageOpen,
+      },
+    ],
   },
   {
-    title: "Orders",
-    href: "/admin/dashboard/orders",
-    Icon: PackageOpen,
+    group: "Menage",
+    items: [
+      {
+        title: "Tags",
+        href: "/admin/dashboard/tags",
+        Icon: Tag,
+      },
+      {
+        title: "Categories",
+        href: "/admin/dashboard/categories",
+        Icon: LibraryBig,
+      },
+    ],
   },
   {
-    title: "Categories",
-    href: "/admin/dashboard/categories",
-    Icon: LibraryBig,
+    group: "Customization",
+    items: [
+      {
+        title: "Billboards",
+        href: "/admin/dashboard/billboards",
+        Icon: GalleryThumbnails,
+      },
+      {
+        title: "Style",
+        href: "/admin/dashboard/style",
+        Icon: PaintBucket,
+      },
+    ],
   },
   {
-    title: "Billboards",
-    href: "/admin/dashboard/billboards",
-    Icon: GalleryThumbnails,
-  },
-  {
-    title: "Settings",
-    href: "/admin/dashboard/settings",
-    Icon: Cog,
+    group: "Settings",
+    items: [
+      {
+        title: "Settings",
+        href: "/admin/dashboard/settings",
+        Icon: Cog,
+      },
+    ],
   },
 ];
 
@@ -71,27 +109,31 @@ export default function AdminSidebar() {
         <ShopBadge />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {pages.map((page) => (
-                <SidebarMenuItem key={page.title}>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href={page.href}
-                      className={cn(
-                        pathName === page.href && "font-semibold text-primary",
-                      )}
-                    >
-                      <page.Icon />
-                      <span>{page.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {pages.map((group) => (
+          <SidebarGroup key={group.group}>
+            <SidebarGroupLabel>{group.group}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((page) => (
+                  <SidebarMenuItem key={page.title}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={page.href}
+                        className={cn(
+                          pathName === page.href &&
+                            "font-semibold text-primary",
+                        )}
+                      >
+                        <page.Icon />
+                        <span>{page.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <UserBadge />
