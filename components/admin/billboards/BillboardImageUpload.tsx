@@ -28,14 +28,15 @@ export default function BillboardImageUpload({
       </div>
       <Image
         src={field.value}
-        width={900}
-        height={300}
-        className="h-32 w-full object-fill"
+        width={970}
+        height={250}
+        className="h-32 w-full object-cover"
+        style={{ aspectRatio: "970 / 250" }}
         alt="banner background image"
         onLoad={() => setIsLoading(false)}
       />
-      <div className="absolute right-2 top-2 rounded-lg bg-background/70 p-1 opacity-0 transition hover:cursor-pointer hover:bg-background/90 hover:text-destructive group-hover:opacity-100">
-        <Trash2 className="size-5" onClick={() => field.onChange("")} />
+      <div className="absolute right-2 top-2 rounded-lg bg-background/70 p-2 opacity-0 transition hover:cursor-pointer hover:bg-background/90 hover:text-destructive group-hover:opacity-100">
+        <Trash2 className="size-4" onClick={() => field.onChange("")} />
       </div>
     </div>
   ) : (

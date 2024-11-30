@@ -1,4 +1,7 @@
 "use client";
+
+import Image from "next/image";
+
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 
@@ -10,8 +13,34 @@ import { Billboard } from "@prisma/client";
 
 export const BillboardColumns: ColumnDef<Billboard>[] = [
   {
+    accessorKey: "preview",
+    header: "Banner preview",
+    size: 200,
+    cell: ({ row }) => {
+      if (!row.original.imageUrl) {
+        return <p className="text-muted-foreground">No preview</p>;
+      } else {
+        return (
+          <div className="w-32">
+            <Image
+              src={row.original.imageUrl}
+              alt={`${row.original.label} banner preview`}
+              width={970}
+              height={250}
+              className="h-auto w-full object-cover"
+              style={{
+                aspectRatio: "970 / 250",
+              }}
+            />
+          </div>
+        );
+      }
+    },
+  },
+  {
     accessorKey: "label",
     header: "Label",
+    cell: ({ row }) => <p className="font-bold">{row.original.label}</p>,
   },
   {
     accessorKey: "text",

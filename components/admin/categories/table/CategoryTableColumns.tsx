@@ -11,6 +11,7 @@ export const CategoryColumns: ColumnDef<CategoryExtended>[] = [
     id: "name",
     header: "Name",
     accessorKey: "name",
+    cell: ({ row }) => <p className="font-bold">{row.original.name}</p>,
   },
   {
     id: "billboard",
