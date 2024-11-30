@@ -44,7 +44,10 @@ export const createStore = async (values: z.infer<typeof StoreSchema>) => {
 
     return { success: true, store };
   } catch (error: any) {
-    console.error("An error occurred during createStore action: ", error);
+    console.error(
+      "An error occurred during createStore action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -81,7 +84,10 @@ export const updateStore = async (
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during updateStore action: ", error);
+    console.error(
+      "An error occurred during updateStore action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -101,7 +107,10 @@ export const deleteStore = async (storeId: string) => {
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during deleteStore action: ", error);
+    console.error(
+      "An error occurred during deleteStore action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };

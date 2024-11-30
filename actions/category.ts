@@ -49,7 +49,10 @@ export const createCategory = async (
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during createCategory action: ", error);
+    console.error(
+      "An error occurred during createCategory action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -98,7 +101,10 @@ export const updateCategory = async (
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during updateCategory action: ", error);
+    console.error(
+      "An error occurred during updateCategory action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -117,7 +123,10 @@ export const deleteCategory = async (storeId: string, categoryId: string) => {
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during deleteCategory action: ", error);
+    console.error(
+      "An error occurred during deleteCategory action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };

@@ -50,7 +50,7 @@ export async function login(
 
     return { success: true, redirectUrl };
   } catch (error: any) {
-    console.error("An error occurred during login action: ", error);
+    console.error("An error occurred during login action: ", error.message);
     return { error: error.message };
   }
 }
@@ -73,7 +73,10 @@ export async function createAdminUser(values: {
 
     return data.user;
   } catch (error: any) {
-    console.error("An error occurred during createAdminUser action: ", error);
+    console.error(
+      "An error occurred during createAdminUser action: ",
+      error.message,
+    );
     return null;
   }
 }

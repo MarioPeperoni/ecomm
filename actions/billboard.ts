@@ -30,6 +30,7 @@ export const createBillboard = async (
     await prismadb.billboard.create({
       data: {
         ...values,
+        imageUrl: values.imageUrl ?? "",
         fontName: values.fontName as FontName,
         Store: {
           connect: {
@@ -41,7 +42,10 @@ export const createBillboard = async (
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during createBillboard action: ", error);
+    console.error(
+      "An error occurred during createBillboard action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -78,7 +82,10 @@ export const updateBillboard = async (
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during updateBillboard action: ", error);
+    console.error(
+      "An error occurred during updateBillboard action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
@@ -101,7 +108,10 @@ export const deleteBillboard = async (storeId: string, billboardId: string) => {
 
     return { success: true };
   } catch (error: any) {
-    console.error("An error occurred during deleteBillboard action: ", error);
+    console.error(
+      "An error occurred during deleteBillboard action: ",
+      error.message,
+    );
     return { error: error.message };
   }
 };
