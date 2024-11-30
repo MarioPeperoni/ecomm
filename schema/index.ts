@@ -34,3 +34,8 @@ export const CategorySchema = z.object({
   name: z.string().min(1),
   billboardId: z.string().optional(),
 });
+
+export const TagSchema = z.object({
+  name: z.string().min(1),
+  tags: z.array(z.string()),
+});

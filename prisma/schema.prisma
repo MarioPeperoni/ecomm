@@ -36,6 +36,7 @@ model Store {
 
   Billboards Billboard[] @relation("StoreToBillboard")
   Categories Category[]  @relation("StoreToCategory")
+  TagGroup   TagGroup[]  @relation("StoreToTagGroup")
 }
 
 enum FontName {
@@ -70,10 +71,36 @@ model Category {
   Store   Store  @relation("StoreToCategory", fields: [storeId], references: [id])
 
   billboardId String?
-  Billboard   Billboard? @relation(fields: [billboardId], references: [id])
+  Billboard   Billboard? @relation(fields: [billboardId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Implement to category has child category
+}
+
+model TagGroup {
+  id String @id @default(uuid())
+
+  name String
+  Tags Tag[]
+
+  storeId String
+  Store   Store  @relation("StoreToTagGroup", fields: [storeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id String @id @default(uuid())
+
+  index Int
+  name  String
+
+  tagId    String
+  TagGroup TagGroup @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
