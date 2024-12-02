@@ -16,8 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 
-import BillboardAEDialogContent from "@/components/admin/billboards/BillboardAEDialogContent";
-
 import { PencilLine, Trash2 } from "lucide-react";
 
 interface DeleteProps {
@@ -32,6 +30,7 @@ type DialogContentProps = {
 };
 
 interface DatatableActionsProps {
+  children?: React.ReactNode;
   item: any;
   deleteProps: DeleteProps;
   DialogContent: React.ComponentType<DialogContentProps>;
@@ -54,7 +53,7 @@ export default function DataTableActions({
     <div className="flex justify-end gap-2">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button variant={"secondary"} className="size-10 hover:bg-primary/30">
+          <Button variant={"secondary"} className="size-10 hover:bg-primary/20">
             <PencilLine />
           </Button>
         </DialogTrigger>

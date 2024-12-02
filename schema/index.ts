@@ -39,3 +39,32 @@ export const TagSchema = z.object({
   name: z.string().min(1),
   tags: z.array(z.string()),
 });
+
+export const NewProductSchema = z.object({
+  name: z.string().min(1),
+  category: z.string().min(1),
+});
+
+export const ProductSchema = z.object({
+  name: z.string().min(1),
+  categoryId: z.string().min(1),
+  description: z.string().optional(),
+  price: z.coerce
+    .number({ message: "Price must be valid" })
+    .positive({ message: "Price must be set" }),
+  imagesUrl: z.array(z.string()),
+  isFeatured: z.boolean(),
+  quantity: z.array(z.coerce.number()).refine(
+    (quantities) => {
+      if (quantities.length === 1) {
+        return quantities[0] > 0;
+      } else {
+        return quantities.some((value) => value > 1);
+      }
+    },
+    {
+      message:
+        "Product must have at least one size with quantity greater than 0",
+    },
+  ),
+});

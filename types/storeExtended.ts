@@ -1,4 +1,11 @@
-import { Billboard, Category, Store, Tag, TagGroup } from "@prisma/client";
+import {
+  Billboard,
+  Category,
+  Product,
+  Store,
+  Tag,
+  TagGroup,
+} from "@prisma/client";
 
 export type StoreExtended = Store & {
   Categories: Category[];
@@ -9,5 +16,10 @@ export type CategoryExtended = Category & {
 };
 
 export type TagExtended = TagGroup & {
+  Tags: Tag[];
+};
+
+export type ProductExtended = Product & {
+  Category: Category;
   Tags: Tag[];
 };
