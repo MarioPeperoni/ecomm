@@ -23,9 +23,7 @@ const TagsColumns: ColumnDef<TagExtended>[] = [
       return (
         <div className="flex flex-wrap gap-1">
           {tags.map((tag) => (
-            <Badge key={tag.id} className="mr-1">
-              {tag.name}
-            </Badge>
+            <Badge key={tag.id}>{tag.name}</Badge>
           ))}
         </div>
       );

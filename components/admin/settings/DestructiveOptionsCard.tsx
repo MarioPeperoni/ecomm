@@ -59,7 +59,7 @@ export default function DestructiveOptionsCard() {
       <CardContent className="flex justify-between gap-2 p-3">
         <div>
           <p className="font-bold">Delete this store</p>
-          <p className="text-sm">
+          <p className="text-sm text-muted-foreground">
             Once you delete this shop, there is no going back. Please be
             certain.
           </p>
@@ -82,10 +82,11 @@ export default function DestructiveOptionsCard() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction asChild>
-                <Button variant={"destructive"} onClick={onStoreDelete}>
+              <AlertDialogAction
+                onClick={onStoreDelete}
+                className="bg-destructive hover:bg-destructive/80"
+              >
                   Yes, delete store
-                </Button>
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

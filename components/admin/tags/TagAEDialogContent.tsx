@@ -3,6 +3,7 @@
 import {
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
@@ -21,10 +22,12 @@ export default function TagAEDialogContent({
 }: TagAEProps) {
   return (
     <DialogContent>
-      <DialogTitle>
-        {!tag ? "Create new tag group" : "Edit tag group"}
-      </DialogTitle>
-      <DialogDescription>Configure tag group below.</DialogDescription>
+      <DialogHeader>
+        <DialogTitle>
+          {!tag ? "Create new tag group" : "Edit tag group"}
+        </DialogTitle>
+        <DialogDescription>Configure tag group below.</DialogDescription>
+      </DialogHeader>
       <TagAEForm item={tag} closeDialog={closeDialog} />
     </DialogContent>
   );

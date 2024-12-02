@@ -3,6 +3,7 @@
 import {
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
@@ -21,12 +22,14 @@ export default function CategoryAEDialogContent({
 }: CategoryAEProps) {
   return (
     <DialogContent>
-      <DialogTitle>
-        {!category ? "Create new category" : "Edit category"}
-      </DialogTitle>
-      <DialogDescription>
-        Configure the category settings below.
-      </DialogDescription>
+      <DialogHeader>
+        <DialogTitle>
+          {!category ? "Create new category" : "Edit category"}
+        </DialogTitle>
+        <DialogDescription>
+          Configure the category settings below.
+        </DialogDescription>
+      </DialogHeader>
       <CategoryAEForm item={category} closeDialog={closeDialog} />
     </DialogContent>
   );

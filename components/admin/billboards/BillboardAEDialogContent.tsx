@@ -3,6 +3,7 @@
 import {
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 
@@ -21,12 +22,14 @@ export default function BillboardAEDialogContent({
 }: BillboardAEProps) {
   return (
     <DialogContent>
-      <DialogTitle>
-        {!billboard ? "Create new billboard" : "Edit billboard"}
-      </DialogTitle>
-      <DialogDescription>
-        Configure the billboard settings below.
-      </DialogDescription>
+      <DialogHeader>
+        <DialogTitle>
+          {!billboard ? "Create new billboard" : "Edit billboard"}
+        </DialogTitle>
+        <DialogDescription>
+          Configure the billboard settings below.
+        </DialogDescription>
+      </DialogHeader>
       <BillboardAEForm billboard={billboard} closeDialog={closeDialog} />
     </DialogContent>
   );
