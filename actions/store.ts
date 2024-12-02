@@ -2,6 +2,8 @@
 
 import { createAdminUser } from "@/actions/auth";
 
+import getDomain from "@/data/domain";
+
 import prismadb from "@/lib/prismadb";
 import { createClient } from "@/utils/supabase/server";
 
@@ -55,17 +57,13 @@ export const createStore = async (values: z.infer<typeof StoreSchema>) => {
 /**
  * Updates the store with the given values.
  *
- * @param storeId - The ID of the store to update.
  * @param values - The new values to update the store with, validated against the SettingsSchema.
  *
  * @throws Will throw an error if the data is invalid, the user is not found, the store is not found, or the user is not authorized to update the store.
  */
-export const updateStore = async (
-  storeId: string,
-  values: z.infer<typeof SettingsSchema>,
-) => {
+export const updateStore = async (values: z.infer<typeof SettingsSchema>) => {
   try {
-    const store = await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
     const validatedFields = SettingsSchema.safeParse(values);
 
     if (!validatedFields.success) {
@@ -73,7 +71,7 @@ export const updateStore = async (
     }
 
     await prismadb.store.update({
-      where: { id: storeId },
+      where: { id: store.id },
       data: { ...values, category: values.category as StoreCategory },
     });
 
@@ -95,14 +93,13 @@ export const updateStore = async (
 /**
  * Deletes a store by its ID.
  *
- * @param storeId - The ID of the store to delete.
  */
-export const deleteStore = async (storeId: string) => {
+export const deleteStore = async () => {
   try {
-    await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
 
     await prismadb.store.delete({
-      where: { id: storeId },
+      where: { id: store.id },
     });
 
     return { success: true };
@@ -117,11 +114,10 @@ export const deleteStore = async (storeId: string) => {
 /**
  * Initializes the store update process by verifying the current user and their authorization.
  *
- * @param storeId - The ID of the store to be updated.
  * @returns A promise that resolves to the store object if the user is authorized.
  * @throws Will throw an error if the user is not found, the store is not found, or the user is not authorized to make changes to the store.
  */
-export const initStoreUpdate = async (storeId: string) => {
+export const initStoreUpdate = async () => {
   const supabase = await createClient();
 
   // Get the current user
@@ -132,9 +128,12 @@ export const initStoreUpdate = async (storeId: string) => {
 
   const user = data.user;
 
-  // Get the store and verify the admin
+  // Get the current domain
+  const domain = await getDomain();
+
+  // Get store by domain
   const store = await prismadb.store.findUnique({
-    where: { id: storeId },
+    where: { domain: domain },
   });
 
   if (!store) {

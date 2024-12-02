@@ -13,14 +13,10 @@ import { Tag } from "@prisma/client";
  * Creates a new tag group and its associated tags for a given store.
  *
  * @param values - The values to create the tag group, validated against `TagSchema`.
- * @param storeId - The ID of the store where the tag group will be created.
  */
-export const createTagGroup = async (
-  values: z.infer<typeof TagSchema>,
-  storeId: string,
-) => {
+export const createTagGroup = async (values: z.infer<typeof TagSchema>) => {
   try {
-    await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
 
     const validatedFields = TagSchema.safeParse(values);
     if (!validatedFields.success) {
@@ -32,7 +28,7 @@ export const createTagGroup = async (
       where: {
         name: values.name,
         Store: {
-          id: storeId,
+          id: store.id,
         },
       },
     });
@@ -47,7 +43,7 @@ export const createTagGroup = async (
         name: values.name,
         Store: {
           connect: {
-            id: storeId,
+            id: store.id,
           },
         },
       },
@@ -84,16 +80,14 @@ export const createTagGroup = async (
  * @param values - The values to update the tag group with, validated against `TagSchema`.
  * @param tagObjectsRef - An array of tag objects to update or create.
  * @param groupTagId - The ID of the tag group to update.
- * @param storeId - The ID of the store to which the tag group belongs.
  */
 export const updateTagGroup = async (
   values: z.infer<typeof TagSchema>,
   tagObjectsRef: Tag[],
   groupTagId: string,
-  storeId: string,
 ) => {
   try {
-    await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
 
     const validatedFields = TagSchema.safeParse(values);
     if (!validatedFields.success) {
@@ -105,7 +99,7 @@ export const updateTagGroup = async (
       where: {
         name: values.name,
         Store: {
-          id: storeId,
+          id: store.id,
         },
       },
     });
@@ -196,11 +190,10 @@ export const updateTagGroup = async (
  * Deletes a tag group by its ID for a specific store.
  *
  * @param tagGroupId - The ID of the tag group to delete.
- * @param storeId - The ID of the store associated with the tag group.
  */
-export const deleteTagGroup = async (tagGroupId: string, storeId: string) => {
+export const deleteTagGroup = async (tagGroupId: string) => {
   try {
-    await initStoreUpdate(storeId);
+    await initStoreUpdate();
 
     await prismadb.tagGroup.delete({
       where: {

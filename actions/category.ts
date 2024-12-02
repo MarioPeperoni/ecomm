@@ -11,14 +11,12 @@ import prismadb from "@/lib/prismadb";
  * Creates a new category for a given store.
  *
  * @param values - The category data to be validated and created.
- * @param storeId - The ID of the store where the category will be created.
  */
 export const createCategory = async (
   values: z.infer<typeof CategorySchema>,
-  storeId: string,
 ) => {
   try {
-    await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
 
     const validatedFields = CategorySchema.safeParse(values);
     if (!validatedFields.success) {
@@ -29,7 +27,7 @@ export const createCategory = async (
     const existingCategory = await prismadb.category.findFirst({
       where: {
         name: values.name,
-        Store: { id: storeId },
+        Store: { id: store.id },
       },
     });
 
@@ -40,7 +38,7 @@ export const createCategory = async (
     await prismadb.category.create({
       data: {
         name: values.name,
-        Store: { connect: { id: storeId } },
+        Store: { connect: { id: store.id } },
         Billboard: values.billboardId
           ? { connect: { id: values.billboardId } }
           : undefined,
@@ -61,16 +59,14 @@ export const createCategory = async (
  * Updates a category in the store.
  *
  * @param values - The values to update the category with, validated against `CategorySchema`.
- * @param storeId - The ID of the store where the category belongs.
  * @param categoryId - The ID of the category to be updated.
  */
 export const updateCategory = async (
   values: z.infer<typeof CategorySchema>,
-  storeId: string,
   categoryId: string,
 ) => {
   try {
-    await initStoreUpdate(storeId);
+    const store = await initStoreUpdate();
 
     const validatedFields = CategorySchema.safeParse(values);
     if (!validatedFields.success) {
@@ -81,7 +77,7 @@ export const updateCategory = async (
     const existingCategory = await prismadb.category.findFirst({
       where: {
         name: values.name,
-        Store: { id: storeId },
+        Store: { id: store.id },
       },
     });
 
@@ -112,12 +108,11 @@ export const updateCategory = async (
 /**
  * Deletes a category from the store.
  *
- * @param storeId - The ID of the store.
  * @param categoryId - The ID of the category to be deleted.
  */
-export const deleteCategory = async (storeId: string, categoryId: string) => {
+export const deleteCategory = async (categoryId: string) => {
   try {
-    await initStoreUpdate(storeId);
+    await initStoreUpdate();
 
     await prismadb.category.delete({ where: { id: categoryId } });
 
