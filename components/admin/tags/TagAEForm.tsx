@@ -7,7 +7,6 @@ import { useState, useTransition } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,7 +50,6 @@ import { Input } from "@/components/ui/input";
 import { PencilLine, Plus, Trash2 } from "lucide-react";
 
 export default function TagAEForm({ item: tagGroup, closeDialog }: TagAEProps) {
-  const store = useStore();
   const router = useRouter();
 
   const [isSubmitting, startSubmitting] = useTransition();
@@ -75,25 +73,23 @@ export default function TagAEForm({ item: tagGroup, closeDialog }: TagAEProps) {
   const onSubmit = (values: z.infer<typeof TagSchema>) => {
     startSubmitting(async () => {
       if (tagGroup) {
-        await updateTagGroup(values, tagGroup.Tags, tagGroup.id, store.id).then(
-          (res) => {
-            if (res.success) {
-              toast({
-                title: "Tag group updated",
-                description: "The tag group has been updated.",
-              });
-              router.refresh();
-              closeDialog();
-            } else {
-              toast({
-                title: "An error occurred during tag group update",
-                description: res.error,
-              });
-            }
-          },
-        );
+        await updateTagGroup(values, tagGroup.Tags, tagGroup.id).then((res) => {
+          if (res.success) {
+            toast({
+              title: "Tag group updated",
+              description: "The tag group has been updated.",
+            });
+            router.refresh();
+            closeDialog();
+          } else {
+            toast({
+              title: "An error occurred during tag group update",
+              description: res.error,
+            });
+          }
+        });
       } else {
-        createTagGroup(values, store.id).then((res) => {
+        createTagGroup(values).then((res) => {
           if (res.success) {
             toast({
               title: "Tag group created",

@@ -4,7 +4,6 @@ import { deleteCategory } from "@/actions/category";
 
 import { useRouter } from "next/navigation";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import CategoryAEDialogContent from "@/components/admin/categories/CategoryAEDialogContent";
@@ -19,7 +18,6 @@ interface CategoryTableActionsProps {
 export default function CategoryTableActions({
   category,
 }: CategoryTableActionsProps) {
-  const store = useStore();
   const router = useRouter();
 
   return (
@@ -30,7 +28,7 @@ export default function CategoryTableActions({
         deleteDescription:
           "The category will be removed and all assossiated items will be unlinked.",
         onDelete: () => {
-          deleteCategory(store.id, category.id).then((res) => {
+          deleteCategory(category.id).then((res) => {
             if (res.success) {
               toast({
                 title: "Category deleted",

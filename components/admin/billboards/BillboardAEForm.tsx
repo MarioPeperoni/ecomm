@@ -5,7 +5,6 @@ import { createBillboard, updateBillboard } from "@/actions/billboard";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import { useForm } from "react-hook-form";
@@ -48,7 +47,6 @@ export default function BillboardAEForm({
 }: BillboardAEProps) {
   const [isSubmitting, startSubmitting] = useTransition();
 
-  const store = useStore();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof BillboardSchema>>({
@@ -65,7 +63,7 @@ export default function BillboardAEForm({
     startSubmitting(async () => {
       if (!billboard) {
         // Create
-        await createBillboard(values, store.id).then((res) => {
+        await createBillboard(values).then((res) => {
           if (res.success) {
             toast({
               title: "Billboard created",
@@ -83,7 +81,7 @@ export default function BillboardAEForm({
         });
       } else {
         // Update
-        await updateBillboard(values, store.id, billboard.id).then((res) => {
+        await updateBillboard(values, billboard.id).then((res) => {
           if (res.success) {
             toast({
               title: "Billboard updated",

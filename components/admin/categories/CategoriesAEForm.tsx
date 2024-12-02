@@ -12,7 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CategorySchema } from "@/schema";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import { CategoryAEProps } from "@/components/admin/categories/CategoryAEDialogContent";
@@ -47,7 +46,6 @@ export default function CategoryAEForm({
   const [billboards, setBillboards] = useState<Billboard[]>([]);
 
   const router = useRouter();
-  const store = useStore();
 
   useEffect(() => {
     // Fetch billboards to populate the select dropdown
@@ -73,7 +71,7 @@ export default function CategoryAEForm({
     startSubmitting(async () => {
       if (!category) {
         // Create new category
-        await createCategory(values, store.id).then((res) => {
+        await createCategory(values).then((res) => {
           if (res.success) {
             toast({
               title: "Category created",
@@ -91,7 +89,7 @@ export default function CategoryAEForm({
         });
       } else {
         // Update existing category
-        await updateCategory(values, store.id, category.id).then((res) => {
+        await updateCategory(values, category.id).then((res) => {
           if (res.success) {
             toast({
               title: "Category updated",

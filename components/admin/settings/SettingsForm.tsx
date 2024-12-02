@@ -54,7 +54,7 @@ export default function SettingsForm() {
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startSubmitting(() => {
-      updateStore(store.id, values).then((res) => {
+      updateStore(values).then((res) => {
         if (res.success) {
           if (res.redirect) {
             toast({

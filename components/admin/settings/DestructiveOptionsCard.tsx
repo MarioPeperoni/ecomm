@@ -5,7 +5,6 @@ import { deleteStore } from "@/actions/store";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import {
@@ -25,14 +24,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Trash2 } from "lucide-react";
 
 export default function DestructiveOptionsCard() {
-  const store = useStore();
   const router = useRouter();
 
   const [isSubmitting, startSubmitting] = useTransition();
 
   const onStoreDelete = () => {
     startSubmitting(async () => {
-      await deleteStore(store.id).then((res) => {
+      await deleteStore().then((res) => {
         if (res.success) {
           toast({
             title: "Store deleted",
@@ -86,7 +84,7 @@ export default function DestructiveOptionsCard() {
                 onClick={onStoreDelete}
                 className="bg-destructive hover:bg-destructive/80"
               >
-                  Yes, delete store
+                Yes, delete store
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

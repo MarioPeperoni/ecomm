@@ -30,7 +30,7 @@ export default function BillboardsTableActions({
         deleteDescription:
           "This billboard will be deleted from all categories assossiatedwith it.",
         onDelete: () => {
-          deleteBillboard(store.id, billboard.id).then((res) => {
+          deleteBillboard(billboard.id).then((res) => {
             if (res.success) {
               toast({
                 title: "Billboard deleted",

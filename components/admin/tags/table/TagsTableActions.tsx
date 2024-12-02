@@ -5,7 +5,6 @@ import { deleteTagGroup } from "@/actions/tag";
 import { useRouter } from "next/navigation";
 
 import { toast } from "@/hooks/use-toast";
-import { useStore } from "@/hooks/use-store";
 
 import DataTableActions from "@/components/admin/DataTableActions";
 import TagAEDialogContent from "@/components/admin/tags/TagAEDialogContent";
@@ -17,7 +16,6 @@ interface TagsTableActionsProps {
 }
 
 export default function TagsTableActions({ tagGroup }: TagsTableActionsProps) {
-  const store = useStore();
   const router = useRouter();
 
   return (
@@ -28,7 +26,7 @@ export default function TagsTableActions({ tagGroup }: TagsTableActionsProps) {
         deleteDescription:
           "This tag group will be deleted and all assossiated items will be unlinked.",
         onDelete: () => {
-          deleteTagGroup(tagGroup.id, store.id).then((res) => {
+          deleteTagGroup(tagGroup.id).then((res) => {
             if (res.success) {
               toast({
                 title: "Tag group deleted",
