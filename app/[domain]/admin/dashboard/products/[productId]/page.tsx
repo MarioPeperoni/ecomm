@@ -15,7 +15,7 @@ import { getProduct } from "@/data/product";
 export default async function ProductAEPage({
   params,
 }: {
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) {
   const product = await getProduct((await params).productId);
 

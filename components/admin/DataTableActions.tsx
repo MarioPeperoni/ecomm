@@ -25,12 +25,14 @@ interface DeleteProps {
 }
 
 type DialogContentProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   item: any;
   closeDialog: () => void;
 };
 
 interface DatatableActionsProps {
   children?: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   item: any;
   deleteProps: DeleteProps;
   DialogContent: React.ComponentType<DialogContentProps>;

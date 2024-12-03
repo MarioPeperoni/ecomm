@@ -4,7 +4,6 @@ import { deleteBillboard } from "@/actions/billboard";
 
 import { useRouter } from "next/navigation";
 
-import { useStore } from "@/hooks/use-store";
 import { toast } from "@/hooks/use-toast";
 
 import BillboardAEDialogContent from "@/components/admin/billboards/BillboardAEDialogContent";
@@ -19,7 +18,6 @@ interface BillboardTableActionsProps {
 export default function BillboardsTableActions({
   billboard,
 }: BillboardTableActionsProps) {
-  const store = useStore();
   const router = useRouter();
 
   return (

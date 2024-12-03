@@ -86,7 +86,7 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
   },
   {
     header: "Sales",
-    cell: ({ row }) => {
+    cell: () => {
       return <p className="font-bold text-primary">32</p>;
     },
   },

@@ -88,8 +88,7 @@ export default function ProductAEForm({
       description: product.description || "",
       categoryId: product.Category.id || "",
       quantity: product.quantity || [1],
-      // @ts-ignore NIE WKURWIAJ MNIE
-      price: product.price || "",
+      price: product.price,
       isFeatured: product.isFeatured || false,
       imagesUrl: product.imagesUrl || [],
     },

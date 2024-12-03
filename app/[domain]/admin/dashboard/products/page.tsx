@@ -13,7 +13,6 @@ export default async function ProductsPage() {
       <DashHeader
         title={"Products"}
         subtitle={"Menage your products"}
-        // @ts-ignore It's fine bro
         component={<AddNewDialog DialogContent={ProductAddDialog} />}
       />
       <section className="mx-2">

@@ -8,6 +8,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 
 type DialogContentProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   item: any;
   closeDialog: () => void;
 };

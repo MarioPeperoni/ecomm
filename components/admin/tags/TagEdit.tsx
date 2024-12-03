@@ -15,6 +15,7 @@ export default function TagEdit({
 }: {
   tagGroup: TagExtended | null;
   tagName: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   form: any;
   setState: Dispatch<SetStateAction<boolean>>;
   disabled?: boolean;
