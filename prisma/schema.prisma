@@ -38,6 +38,7 @@ model Store {
   Categories Category[]  @relation("StoreToCategory")
   TagGroup   TagGroup[]  @relation("StoreToTagGroup")
   Product    Product[]   @relation("StoreToProduct")
+  Order      Order[]     @relation("StoreToOrder")
 }
 
 enum FontName {
@@ -127,6 +128,8 @@ model Product {
   categoryId String
   Category   Category @relation("StoreToProduct", fields: [categoryId], references: [id])
 
+  OrderItems OrderItem[] @relation("ProductToOrderItem")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -138,7 +141,38 @@ model ProductTag {
   Product   Product @relation("ProductToProductTag", fields: [productId], references: [id])
 
   tagId String
-  Tag   Tag    @relation("TagToProductProductTag", fields: [tagId], references: [id])
+  Tag   Tag    @relation("TagToProductProductTag", fields: [tagId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id String @id @default(uuid())
+
+  storeId String
+  Store   Store  @relation("StoreToOrder", fields: [storeId], references: [id])
+
+  OrderItems OrderItem[]
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  address    String      @default("")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id String @id @default(uuid())
+
+  productId String
+  Product   Product @relation("ProductToOrderItem", fields: [productId], references: [id])
+
+  orderId String
+  Order   Order  @relation(fields: [orderId], references: [id])
+
+  quantity Int
+  size     String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

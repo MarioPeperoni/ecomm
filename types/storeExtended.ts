@@ -1,6 +1,8 @@
 import {
   Billboard,
   Category,
+  Order,
+  OrderItem,
   Product,
   Store,
   Tag,
@@ -22,4 +24,12 @@ export type TagExtended = TagGroup & {
 export type ProductExtended = Product & {
   Category: Category;
   Tags: Tag[];
+};
+
+export type OrderItemExtended = OrderItem & {
+  Product: Product;
+};
+
+export type OrderExtended = Order & {
+  OrderItems: OrderItemExtended[];
 };
