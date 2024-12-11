@@ -97,7 +97,7 @@ export default function SettingsForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-bold">Shop name</FormLabel>
+                <FormLabel>Shop name</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Shop name"
@@ -138,7 +138,7 @@ export default function SettingsForm() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-bold">Store Description</FormLabel>
+                <FormLabel>Store Description</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Write a brief description of your store..."
@@ -156,7 +156,7 @@ export default function SettingsForm() {
             name="category"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-bold">Shop category</FormLabel>
+                <FormLabel>Shop category</FormLabel>
                 <FormControl>
                   <div>
                     <Select

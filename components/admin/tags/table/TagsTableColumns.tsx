@@ -13,7 +13,7 @@ const TagsColumns: ColumnDef<TagExtended>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    cell: ({ row }) => <p className="font-bold">{row.original.name}</p>,
+    cell: ({ row }) => <p className="font-semibold">{row.original.name}</p>,
   },
   {
     accessorKey: "Tags",

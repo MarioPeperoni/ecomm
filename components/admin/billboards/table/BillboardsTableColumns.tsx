@@ -40,7 +40,7 @@ export const BillboardColumns: ColumnDef<Billboard>[] = [
   {
     accessorKey: "label",
     header: "Label",
-    cell: ({ row }) => <p className="font-bold">{row.original.label}</p>,
+    cell: ({ row }) => <p className="font-semibold">{row.original.label}</p>,
   },
   {
     accessorKey: "text",

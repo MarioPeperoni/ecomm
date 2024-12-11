@@ -124,9 +124,9 @@ model Product {
   isFeatured Boolean @default(false)
 
   storeId    String
-  Store      Store    @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId String
-  Category   Category @relation("StoreToProduct", fields: [categoryId], references: [id])
+  Store      Store     @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId String?
+  Category   Category? @relation("StoreToProduct", fields: [categoryId], references: [id], onDelete: SetNull)
 
   OrderItems OrderItem[] @relation("ProductToOrderItem")
 
@@ -171,6 +171,7 @@ model OrderItem {
   orderId String
   Order   Order  @relation(fields: [orderId], references: [id])
 
+  price    Float
   quantity Int
   size     String
 

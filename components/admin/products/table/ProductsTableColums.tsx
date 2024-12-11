@@ -17,7 +17,7 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
     id: "preview",
     size: 140,
     cell: ({ row }) => (
-      <div className="w-32 bg-secondary">
+      <div className="w-20 bg-secondary">
         {row.original.imagesUrl[0] ? (
           <Image
             src={row.original.imagesUrl[0]}
@@ -44,7 +44,7 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
 
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        {row.original.price === 0 && (
+        {(row.original.price === 0 || !row.original.Category) && (
           <Badge className="bg-secondary text-secondary-foreground hover:bg-secondary">
             Draft
           </Badge>
@@ -59,6 +59,12 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
   {
     accessorKey: "Category.name",
     header: "Category",
+    cell: ({ row }) =>
+      row.original.Category ? (
+        <p>{row.original.Category.name}</p>
+      ) : (
+        <p className="font-semibold text-destructive">Not set</p>
+      ),
   },
   {
     header: "Tags",
@@ -82,12 +88,6 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
       );
 
       return <p>{quantity}</p>;
-    },
-  },
-  {
-    header: "Sales",
-    cell: () => {
-      return <p className="font-bold text-primary">32</p>;
     },
   },
   {

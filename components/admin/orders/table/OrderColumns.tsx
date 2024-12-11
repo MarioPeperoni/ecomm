@@ -14,41 +14,49 @@ import { OrderExtended } from "@/types/storeExtended";
 export const OrderColumns: ColumnDef<OrderExtended>[] = [
   {
     id: "products",
-    header: "Order items",
+    header: "Order detalis",
     cell: ({ row }) => {
       return (
-        <div className="flex flex-col gap-2">
-          {row.original.OrderItems.map((item) => {
-            const imageUrl = item.Product.imagesUrl[0];
+        <>
+          <p className="mb-2 text-xs text-muted-foreground">
+            ID: {row.original.id}
+          </p>
+          <div className="flex flex-col gap-2">
+            {row.original.OrderItems.map((item) => {
+              const imageUrl = item.Product.imagesUrl[0];
 
-            return (
-              <div key={item.id} className="flex items-center space-x-2">
-                {imageUrl ? (
-                  <>
-                    <Image
-                      src={imageUrl}
-                      alt={`${item.Product.name} product image`}
-                      width={40}
-                      height={40}
-                      className={`h-auto w-12 rounded-[--radius] object-cover transition-opacity duration-300`}
+              return (
+                <div key={item.id} className="flex items-center gap-1">
+                  {imageUrl ? (
+                    <>
+                      <Image
+                        src={imageUrl}
+                        alt={`${item.Product.name} product image`}
+                        width={40}
+                        height={40}
+                        className={`h-auto w-12 rounded-[--radius] object-cover transition-opacity duration-300`}
+                        style={{ aspectRatio: "3 / 4" }}
+                      />
+                    </>
+                  ) : (
+                    <p
                       style={{ aspectRatio: "3 / 4" }}
-                    />
-                  </>
-                ) : (
-                  <p
-                    style={{ aspectRatio: "3 / 4" }}
-                    className="flex w-12 select-none items-center justify-center bg-secondary text-center text-xs text-muted-foreground"
-                  >
-                    No preview
+                      className="flex w-12 select-none items-center justify-center bg-secondary text-center text-xs text-muted-foreground"
+                    >
+                      No preview
+                    </p>
+                  )}
+
+                  <p className="ml-5 font-semibold">{item.Product.name}</p>
+                  {item.size && <Badge className="px-1">{item.size}</Badge>}
+                  <p className="font-mono font-semibold text-primary">
+                    ({item.quantity})
                   </p>
-                )}
-                <p className="font-bold">{item.Product.name}</p>
-                <Badge>{item.size}</Badge>
-                <p className="font-mono">x{item.quantity}</p>
-              </div>
-            );
-          })}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
       );
     },
   },
@@ -59,7 +67,7 @@ export const OrderColumns: ColumnDef<OrderExtended>[] = [
       const items = row.original.OrderItems;
       const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
-      return <p className="font-bold">{itemCount}</p>;
+      return <p className="font-semibold">{itemCount}</p>;
     },
   },
   {
@@ -68,11 +76,11 @@ export const OrderColumns: ColumnDef<OrderExtended>[] = [
     cell: ({ row }) => {
       const items = row.original.OrderItems;
       const priceTotal = items.reduce((acc, item) => {
-        const price = item.Product.price * item.quantity;
+        const price = item.price * item.quantity;
         return acc + price;
       }, 0);
 
-      return <p className="font-bold text-primary">${priceTotal}</p>;
+      return <p className="font-semibold text-primary">${priceTotal}</p>;
     },
   },
   {

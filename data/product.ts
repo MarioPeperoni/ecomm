@@ -26,9 +26,7 @@ export default async function getStoreProducts() {
 
   return products.map((product) => ({
     ...product,
-    Category: {
-      ...product.Category,
-    },
+    Category: product.Category ? { ...product.Category } : null,
     Tags: product.ProductTag.map((tag) => tag.Tag),
   })) as ProductExtended[];
 }
@@ -54,9 +52,7 @@ export async function getProduct(productId: string) {
 
   return {
     ...product,
-    Category: {
-      ...product.Category,
-    },
+    Category: product.Category ? { ...product.Category } : null,
     Tags: product.ProductTag.map((tag) => tag.Tag),
   } as ProductExtended;
 }

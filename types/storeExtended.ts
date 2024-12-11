@@ -22,7 +22,7 @@ export type TagExtended = TagGroup & {
 };
 
 export type ProductExtended = Product & {
-  Category: Category;
+  Category?: Category;
   Tags: Tag[];
 };
 

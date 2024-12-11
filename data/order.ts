@@ -20,6 +20,9 @@ export default async function getOrders() {
         },
       },
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return orders;

@@ -132,7 +132,7 @@ export default function ProductAddForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
           Create product
         </Button>
         <p className="text-center text-sm text-muted-foreground">
