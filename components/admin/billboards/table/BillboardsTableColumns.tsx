@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
-
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { ColumnDef } from "@tanstack/react-table";
+
+import ImageWLoading from "@/components/ui/ImageWLoading";
 
 import BillboardsTableActions from "@/components/admin/billboards/table/BillboardsTableActions";
 
@@ -22,7 +22,7 @@ export const BillboardColumns: ColumnDef<Billboard>[] = [
       } else {
         return (
           <div className="w-32">
-            <Image
+            <ImageWLoading
               src={row.original.imageUrl}
               alt={`${row.original.label} banner preview`}
               width={970}

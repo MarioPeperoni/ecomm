@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { Badge } from "@/components/ui/badge";
+import ImageWLoading from "@/components/ui/ImageWLoading";
 
 import ProductsTableActions from "@/components/admin/products/table/ProductsTableActions";
 
@@ -19,7 +18,7 @@ export const ProductTableColumns: ColumnDef<ProductExtended>[] = [
     cell: ({ row }) => (
       <div className="w-20 bg-secondary">
         {row.original.imagesUrl[0] ? (
-          <Image
+          <ImageWLoading
             src={row.original.imagesUrl[0]}
             alt={`${row.original.name} variant image`}
             width={900}

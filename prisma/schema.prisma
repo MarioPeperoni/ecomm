@@ -39,6 +39,7 @@ model Store {
   TagGroup   TagGroup[]  @relation("StoreToTagGroup")
   Product    Product[]   @relation("StoreToProduct")
   Order      Order[]     @relation("StoreToOrder")
+  StoreStyle StoreStyle?
 }
 
 enum FontName {
@@ -174,6 +175,20 @@ model OrderItem {
   price    Float
   quantity Int
   size     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model StoreStyle {
+  id String @id @default(uuid())
+
+  storeId String @unique
+  Store   Store  @relation(fields: [storeId], references: [id])
+
+  logoUrl      String
+  primaryColor String
+  radius       String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

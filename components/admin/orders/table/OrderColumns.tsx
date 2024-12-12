@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
-
 import { format } from "date-fns";
 import { enUS } from "date-fns/locale";
 
 import { ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
+import ImageWLoading from "@/components/ui/ImageWLoading";
 
 import { OrderExtended } from "@/types/storeExtended";
 
@@ -29,7 +28,7 @@ export const OrderColumns: ColumnDef<OrderExtended>[] = [
                 <div key={item.id} className="flex items-center gap-1">
                   {imageUrl ? (
                     <>
-                      <Image
+                      <ImageWLoading
                         src={imageUrl}
                         alt={`${item.Product.name} product image`}
                         width={40}

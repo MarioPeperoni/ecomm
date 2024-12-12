@@ -1,6 +1,7 @@
 import prismadb from "@/lib/prismadb";
 
 import { StoreProvider } from "@/hooks/use-store";
+import StyleProvider from "@/hooks/style-provider";
 
 export default async function DomainLayout({
   children,
@@ -19,6 +20,7 @@ export default async function DomainLayout({
     },
     include: {
       Categories: true,
+      StoreStyle: true,
     },
   });
 
@@ -26,5 +28,11 @@ export default async function DomainLayout({
     return <div>Store not found</div>;
   }
 
-  return <StoreProvider store={store}>{children}</StoreProvider>;
+  // Map the style to the variable to pass to main layout
+
+  return (
+    <StoreProvider store={store}>
+      <StyleProvider>{children}</StyleProvider>
+    </StoreProvider>
+  );
 }
