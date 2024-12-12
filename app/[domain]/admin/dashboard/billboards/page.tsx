@@ -1,4 +1,4 @@
-import getBillboards from "@/data/bilboard";
+import { getBillboards } from "@/data/bilboard";
 
 import BillboardsTable from "@/components/admin/billboards/table/BillboardsTable";
 import DashHeader from "@/components/admin/dashboard/DashHeader";

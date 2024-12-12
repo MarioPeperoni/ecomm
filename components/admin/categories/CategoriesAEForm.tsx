@@ -2,7 +2,7 @@
 
 import { createCategory, updateCategory } from "@/actions/category";
 
-import getBillboards from "@/data/bilboard";
+import { getBillboards } from "@/data/bilboard";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";

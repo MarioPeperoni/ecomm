@@ -4,7 +4,7 @@ import getDomain from "@/data/domain";
 
 import prismadb from "@/lib/prismadb";
 
-export default async function getBillboards() {
+export async function getBillboards() {
   const domain = await getDomain();
 
   const billboards = await prismadb.billboard.findMany({
@@ -16,4 +16,19 @@ export default async function getBillboards() {
   });
 
   return billboards;
+}
+
+export async function getBillboard(id: string) {
+  const domain = await getDomain();
+
+  const billboard = await prismadb.billboard.findFirst({
+    where: {
+      id,
+      Store: {
+        domain,
+      },
+    },
+  });
+
+  return billboard;
 }

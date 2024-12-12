@@ -28,8 +28,6 @@ export default async function DomainLayout({
     return <div>Store not found</div>;
   }
 
-  // Map the style to the variable to pass to main layout
-
   return (
     <StoreProvider store={store}>
       <StyleProvider>{children}</StyleProvider>

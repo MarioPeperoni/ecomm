@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-
 import Image from "next/image";
+
+import { cn } from "@/lib/utils";
 
 type ImageWLoadingProps = React.ComponentProps<typeof Image>;
 
@@ -12,7 +12,7 @@ const ImageWLoading: React.FC<ImageWLoadingProps> = (props) => (
       event.currentTarget.setAttribute("data-loaded", "true");
     }}
     className={cn(
-      "data-[loaded=false]:animate-pulse data-[loaded=false]:bg-muted",
+      "object-cover data-[loaded=false]:animate-pulse data-[loaded=false]:bg-muted",
       props.className,
     )}
   />

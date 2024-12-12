@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useStore } from "@/hooks/use-store";
 
 import {
@@ -17,12 +19,14 @@ export default function ShopBadge() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton size="lg">
-          <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-            <Store className="size-4" />
-          </div>
-          <div className="flex flex-col gap-0.5 leading-none">
-            <span className="font-semibold">{store.name}</span>
-          </div>
+          <Link href={`/`} className="flex items-center gap-2">
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+              <Store className="size-4" />
+            </div>
+            <div className="flex flex-col gap-0.5 leading-none">
+              <span className="font-semibold">{store.name}</span>
+            </div>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
