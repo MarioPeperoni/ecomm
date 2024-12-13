@@ -44,8 +44,11 @@ export async function getProducts(query: ProductsQuery) {
       Store: {
         domain: domain,
       },
-      Category: query.categoryId ? { id: query.categoryId } : undefined,
+      Category: query.categoryId
+        ? { id: query.categoryId }
+        : { NOT: undefined },
       isFeatured: query.isFeatured,
+      price: { not: undefined },
     },
     include: {
       Category: true,
@@ -59,7 +62,7 @@ export async function getProducts(query: ProductsQuery) {
 
   return products.map((product) => ({
     ...product,
-    Category: product.Category ? { ...product.Category } : null,
+    Category: product.Category,
     Tags: product.ProductTag.map((tag) => tag.Tag),
   })) as ProductExtended[];
 }
