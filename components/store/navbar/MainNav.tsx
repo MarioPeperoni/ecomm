@@ -12,7 +12,7 @@ interface MainNavProps {
 export default function MainNav({ categories }: MainNavProps) {
   const pathName = usePathname();
   const routes = categories.map((category) => ({
-    href: `/category/${category.name}`,
+    href: `/category/${category.id}`,
     label: category.name,
     active: pathName.includes(`/category/${category.id}`),
   }));

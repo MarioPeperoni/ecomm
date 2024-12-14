@@ -20,3 +20,21 @@ export default async function getCategories() {
 
   return categories;
 }
+
+export async function getCategory(categoryId: string) {
+  const domain = await getDomain();
+
+  const category = await prismadb.category.findFirst({
+    where: {
+      id: categoryId,
+      Store: {
+        domain: domain,
+      },
+    },
+    include: {
+      Billboard: true,
+    },
+  });
+
+  return category;
+}
