@@ -1,5 +1,7 @@
 "use client";
 
+import checkout from "@/actions/checkout";
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -25,13 +27,12 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     const checkoutAction = async () => {
-      console.log("RUN CHECKOUT ACTION");
-      //   const response = await checkout(cart.items);
-      //   if (response.url) {
-      //     window.location.href = response.url;
-      //   } else {
-      //     setError(response.error);
-      //   }
+      const response = await checkout(cart.items);
+      if (response.url) {
+        window.location.href = response.url;
+      } else {
+        setError(response.error);
+      }
     };
 
     if (!(searchParams.get("success") || searchParams.get("orderId"))) {
