@@ -56,14 +56,14 @@ export const useCart = create(
           // Update quantity if item with the same size exists
           updatedItems[existingItemIndex] = {
             ...updatedItems[existingItemIndex],
-            quantityInCart:
-              updatedItems[existingItemIndex].quantityInCart + quantityInCart,
+            cartQuantity:
+              updatedItems[existingItemIndex].cartQuantity + quantityInCart,
           };
         } else {
           // Add new item to the cart
           updatedItems.push({
             ...item,
-            quantityInCart,
+            cartQuantity: quantityInCart,
             size: size || undefined,
           });
         }
@@ -103,7 +103,7 @@ export const useCart = create(
         const updatedItems = [...currentItems];
         updatedItems[itemToUpdateIndex] = {
           ...updatedItems[itemToUpdateIndex],
-          quantityInCart,
+          cartQuantity: quantityInCart,
         };
 
         set({ items: updatedItems });
@@ -140,10 +140,6 @@ export const useCart = create(
 
       clearCart: () => {
         set({ items: [] });
-        toast({
-          title: "Cart cleared",
-          description: "All items have been removed from your cart.",
-        });
       },
     }),
     {

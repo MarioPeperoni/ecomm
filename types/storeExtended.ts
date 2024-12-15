@@ -37,6 +37,6 @@ export type OrderExtended = Order & {
 };
 
 export type CartProduct = ProductExtended & {
-  quantityInCart: number;
+  cartQuantity: number;
   size: string | undefined;
 };

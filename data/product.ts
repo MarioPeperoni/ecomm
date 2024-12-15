@@ -2,6 +2,8 @@
 
 import getDomain from "@/data/domain";
 
+import getProductQuantity from "@/helpers/getProductQuantity";
+
 import prismadb from "@/lib/prismadb";
 import { ProductExtended } from "@/types/storeExtended";
 
@@ -35,6 +37,7 @@ interface ProductsQuery {
   categoryId?: string;
   isFeatured?: boolean;
   tags?: { [k: string]: string[] };
+  includeOutOfStock?: boolean;
 }
 
 export async function getProducts(query: ProductsQuery) {
@@ -76,7 +79,12 @@ export async function getProducts(query: ProductsQuery) {
     },
   });
 
-  return products.map((product) => ({
+  // Filter out-of-stock products
+  const filteredProducts = !query.includeOutOfStock
+    ? products.filter((product) => getProductQuantity(product.quantity) > 0)
+    : products;
+
+  return filteredProducts.map((product) => ({
     ...product,
     Category: product.Category,
     Tags: product.ProductTag.map((tag) => tag.Tag),

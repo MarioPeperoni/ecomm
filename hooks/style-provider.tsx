@@ -17,8 +17,6 @@ export default function StyleProvider({
   useEffect(() => {
     // Change root style to store style
     if (store.StoreStyle) {
-      console.log(store.StoreStyle.primaryColor);
-
       document.documentElement.style.setProperty(
         "--primary",
         store.StoreStyle.primaryColor,

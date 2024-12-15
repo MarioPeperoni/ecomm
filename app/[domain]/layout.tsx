@@ -30,7 +30,9 @@ export default async function DomainLayout({
 
   return (
     <StoreProvider store={store}>
-      <StyleProvider>{children}</StyleProvider>
+      <StyleProvider>
+        <main>{children}</main>
+      </StyleProvider>
     </StoreProvider>
   );
 }

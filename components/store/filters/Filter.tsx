@@ -33,8 +33,6 @@ export default function Filter({ tagGroup }: FilterProps) {
       current[tagGroup.id] = selectedTags.join(",");
     }
 
-    console.log(current);
-
     const url = qs.stringifyUrl(
       {
         url: currentUrl.pathname,

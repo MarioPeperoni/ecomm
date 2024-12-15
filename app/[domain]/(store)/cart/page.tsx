@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { useCart } from "@/hooks/use-cart";
 
 import CartSummary from "@/components/store/cart/CartSummary";
@@ -11,17 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import Container from "@/components/ui/Container";
 
 export default function CartPage() {
-  const [isMounted, setIsMounted] = useState(false);
-
   const cart = useCart();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <div>

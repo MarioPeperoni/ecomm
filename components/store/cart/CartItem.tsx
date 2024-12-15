@@ -16,7 +16,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const [quantity, setQuantity] = useState(item.quantityInCart);
+  const [quantity, setQuantity] = useState(item.cartQuantity);
 
   const cart = useCart();
   const onRemove = () => {

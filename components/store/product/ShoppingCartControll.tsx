@@ -4,6 +4,8 @@ import { useState } from "react";
 
 import { useCart } from "@/hooks/use-cart";
 
+import getProductQuantity from "@/helpers/getProductQuantity";
+
 import QuantitySelector from "@/components/store/product/QuantitySelector";
 
 import { Button } from "@/components/ui/button";
@@ -26,7 +28,16 @@ export default function ShoppingCartControll({
 
   const handleAddToCart = () => {
     cart.addItem(product, quantity, size);
+    setQuantity(1);
   };
+
+  if (getProductQuantity(product.quantity) === 0) {
+    return (
+      <span className="w-full text-center text-red-700">
+        Sorry, this item is not available
+      </span>
+    );
+  }
 
   return (
     <>
