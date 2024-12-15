@@ -1,23 +1,47 @@
 "use client";
 
+import { MouseEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import { useCart } from "@/hooks/use-cart";
 
 import ImageWLoading from "@/components/ui/ImageWLoading";
 import { Button } from "@/components/ui/button";
+import { Dialog } from "@/components/ui/dialog";
+
+import SizeDialog from "@/components/store/product/SizeDialog";
 
 import { ProductExtended } from "@/types/storeExtended";
 
-import { Expand, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 
 interface ProductCardProps {
   product: ProductExtended;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [sizesDialogOpen, setSizesDialogOpen] = useState(false);
+
   const router = useRouter();
+  const cart = useCart();
 
   const handleClick = () => {
+    if (sizesDialogOpen) return;
+
     router.push(`/product/${product.id}`);
+  };
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+
+    // Open sizes dialog if product has more than one size
+    if (product.quantity.length > 1) {
+      setSizesDialogOpen(true);
+      return;
+    }
+
+    // Add product without size to cart
+    cart.addItem(product, 1, undefined);
   };
 
   return (
@@ -36,18 +60,19 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
           <div className="absolute bottom-5 w-full px-6 opacity-0 transition group-hover:opacity-100">
             <div className="flex justify-center gap-x-4">
-              <Button
-                variant={"secondary"}
-                className="size-8 p-2 shadow-md transition hover:scale-110 hover:bg-secondary"
-              >
-                <Expand className="text-muted-foreground" />
-              </Button>
-              <Button
-                variant={"secondary"}
-                className="size-8 p-2 shadow-md transition hover:scale-110 hover:bg-secondary"
-              >
-                <ShoppingCart className="text-muted-foreground" size={40} />
-              </Button>
+              <Dialog open={sizesDialogOpen} onOpenChange={setSizesDialogOpen}>
+                <Button
+                  variant={"secondary"}
+                  className="size-8 p-2 shadow-md transition hover:scale-110 hover:bg-secondary"
+                  onClick={onAddToCart}
+                >
+                  <ShoppingCart className="text-muted-foreground" size={40} />
+                </Button>
+                <SizeDialog
+                  product={product}
+                  closeDialog={() => setSizesDialogOpen(false)}
+                />
+              </Dialog>
             </div>
           </div>
         </div>

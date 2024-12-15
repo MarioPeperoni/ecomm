@@ -35,3 +35,8 @@ export type OrderItemExtended = OrderItem & {
 export type OrderExtended = Order & {
   OrderItems: OrderItemExtended[];
 };
+
+export type CartProduct = ProductExtended & {
+  quantityInCart: number;
+  size: string | undefined;
+};

@@ -24,9 +24,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const quantity = getProductQuantity(product.quantity);
   const deliveryDate = getAproxDelivery();
 
-  const [sizeSelected, setSizeSelected] = useState<string | null | undefined>(
-    product.quantity.length > 1 ? null : undefined,
-  );
+  const [sizeSelected, setSizeSelected] = useState<string | null>(null);
 
   // Availability text
   const availabilityText =
@@ -51,7 +49,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       <Separator className="my-4" />
       <section className="space-y-2">
-        {sizeSelected !== undefined && (
+        {product.quantity.length > 1 && (
           <SizeSelect
             quantity={product.quantity}
             state={{ sizeSelected, setSizeSelected }}
@@ -68,7 +66,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <p>Standard delivery</p>
         </div>
         <div className="flex items-center gap-2 rounded-[--radius] border border-border p-4">
-          <ShoppingCartControll size={sizeSelected} />
+          <ShoppingCartControll product={product} size={sizeSelected} />
         </div>
       </section>
     </div>
