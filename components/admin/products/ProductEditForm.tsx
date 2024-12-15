@@ -86,7 +86,7 @@ export default function ProductAEForm({
     defaultValues: {
       name: product.name || "",
       description: product.description || "",
-      categoryId: product.Category.id || "",
+      categoryId: (product.Category && product.Category.id) || "",
       quantity: product.quantity || [1],
       price: product.price,
       isFeatured: product.isFeatured || false,

@@ -10,10 +10,10 @@ import Container from "@/components/ui/Container";
 import { Separator } from "@/components/ui/separator";
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     categoryId: string;
-  };
-  searchParams: Record<string, string>;
+  }>;
+  searchParams: Promise<Record<string, string>>;
 }
 
 export default async function CategoryPage({
@@ -21,16 +21,19 @@ export default async function CategoryPage({
   searchParams,
 }: CategoryPageProps) {
   const tagFilters = Object.fromEntries(
-    Object.entries(searchParams).map(([key, value]) => [key, value.split(",")]),
+    Object.entries(await searchParams).map(([key, value]) => [
+      key,
+      value.split(","),
+    ]),
   );
 
   const products = await getProducts({
-    categoryId: params.categoryId,
+    categoryId: (await params).categoryId,
     tags: tagFilters,
   });
 
   const tagGroups = await getTags();
-  const category = await getCategory(params.categoryId);
+  const category = await getCategory((await params).categoryId);
 
   if (!category) {
     return null;

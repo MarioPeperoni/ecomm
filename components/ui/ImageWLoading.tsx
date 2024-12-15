@@ -7,6 +7,7 @@ type ImageWLoadingProps = React.ComponentProps<typeof Image>;
 const ImageWLoading: React.FC<ImageWLoadingProps> = (props) => (
   <Image
     {...props}
+    alt={props.alt || ""}
     data-loaded="false"
     onLoad={(event) => {
       event.currentTarget.setAttribute("data-loaded", "true");

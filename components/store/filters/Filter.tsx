@@ -19,9 +19,9 @@ export default function Filter({ tagGroup }: FilterProps) {
 
   const onClick = (id: string) => {
     const current = qs.parse(searchParams.toString());
-    let currentUrl = new URL(window.location.href);
+    const currentUrl = new URL(window.location.href);
 
-    let selectedTags = selectedValues.includes(id)
+    const selectedTags = selectedValues.includes(id)
       ? selectedValues.filter((tag) => tag !== id) // Remove tag if already selected
       : [...selectedValues, id]; // Add tag to the selected list
 

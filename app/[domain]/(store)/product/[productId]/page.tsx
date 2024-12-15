@@ -9,13 +9,13 @@ import ProductInfo from "@/components/store/product/ProductInfo";
 import ProductList from "@/components/store/ProductList";
 
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     productId: string;
-  };
+  }>;
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProduct(params.productId);
+  const product = await getProduct((await params).productId);
 
   if (!product) {
     return <div>Product not found</div>;
