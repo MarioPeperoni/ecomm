@@ -68,3 +68,10 @@ export const ProductSchema = z.object({
     },
   ),
 });
+
+export const StyleSchema = z.object({
+  logoUrl: z.string(),
+  primaryColor: z.string(),
+  radius: z.string(),
+  fontName: z.string(),
+});
