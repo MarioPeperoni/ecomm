@@ -8,7 +8,7 @@ export default function Billboard({
   text?: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-[--radius] p-4 sm:p-6 lg:p-8">
+    <div className="select-none overflow-hidden rounded-[--radius] p-4 sm:p-6 lg:p-8">
       <div
         className="relative overflow-hidden rounded-[--radius] bg-primary bg-cover"
         style={{

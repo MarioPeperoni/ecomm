@@ -12,7 +12,10 @@ export default async function HomePage() {
   return (
     <Container>
       <div className="space-y-10 pb-10">
-        {billboard && <Billboard billboard={billboard} />}
+        <Billboard
+          billboard={billboard || undefined}
+          text={!billboard ? `Welcome!` : undefined}
+        />
 
         <section className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
           <ProductList title="Featured Products" products={products} />
