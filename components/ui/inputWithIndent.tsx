@@ -2,43 +2,48 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 type InputWithIndentProps = React.ComponentProps<typeof Input> & {
-  indentvalue: string | React.ReactNode;
+  indentValue: string | React.ReactNode;
   direction: "left" | "right";
+  indentClassName?: string;
+  onIndentClick?: () => void;
 };
 
-const InputWithIndent: React.FC<InputWithIndentProps> = (props) => {
+const InputWithIndent: React.FC<InputWithIndentProps> = ({
+  indentValue,
+  direction,
+  onIndentClick,
+  indentClassName,
+  ...inputProps
+}) => {
+  const renderIndent = (position: "left" | "right") => (
+    <span
+      className={cn(
+        "flex items-center text-nowrap border bg-muted px-3 text-center text-sm",
+        position === "left"
+          ? "rounded-l-[--radius] border-r-0"
+          : "rounded-r-[--radius] border-l-0",
+        indentClassName,
+      )}
+      onClick={onIndentClick}
+    >
+      {indentValue}
+    </span>
+  );
+
   return (
     <div className="flex">
-      {props.direction === "left" && (
-        <span
-          className={cn(
-            "flex items-center text-nowrap rounded-l-[--radius] border border-r-0 border-border bg-muted px-3 text-center text-sm",
-            props.className,
-          )}
-        >
-          {props.indentvalue}
-        </span>
-      )}
+      {direction === "left" && renderIndent("left")}
       <Input
-        {...props}
-        placeholder="your-store-name"
+        {...inputProps}
         className={cn(
-          props.direction === "right"
+          direction === "right"
             ? "rounded-r-none border-r-0"
             : "rounded-l-none border-l-0",
+          inputProps.className,
         )}
         autoCapitalize="none"
       />
-      {props.direction === "right" && (
-        <span
-          className={cn(
-            "flex items-center text-nowrap rounded-r-[--radius] border border-l-0 border-border bg-muted px-3 text-center text-sm",
-            props.className,
-          )}
-        >
-          {props.indentvalue}
-        </span>
-      )}
+      {direction === "right" && renderIndent("right")}
     </div>
   );
 };

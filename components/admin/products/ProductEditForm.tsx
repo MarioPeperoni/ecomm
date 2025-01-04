@@ -253,7 +253,7 @@ export default function ProductAEForm({
                 <FormControl>
                   <InputWithIndent
                     {...field}
-                    indentvalue="$ (USD)"
+                    indentValue="$ (USD)"
                     direction="right"
                     disabled={isSubmitting}
                     className="font-mono"

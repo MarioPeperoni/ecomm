@@ -122,7 +122,7 @@ export default function SettingsForm() {
                     {...field}
                     autoCapitalize="none"
                     disabled={isSubmitting}
-                    indentvalue=".ecomm.vercel.app"
+                    indentValue=".ecomm.vercel.app"
                     direction="right"
                   />
                 </FormControl>
