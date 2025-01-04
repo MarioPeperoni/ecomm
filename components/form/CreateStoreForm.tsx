@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import InputWithIndent from "@/components/ui/inputWithIndent";
 
 import LoadingDots from "@/components/loading/LoadingDots";
 
@@ -133,18 +134,14 @@ export function CreateStoreFrom() {
                   <FormItem>
                     <FormLabel>Store Domain</FormLabel>
                     <FormControl>
-                      <div className="flex">
-                        <Input
-                          placeholder="your-store-name"
-                          {...field}
-                          className="rounded-r-none border-r-0"
-                          autoCapitalize="none"
-                          disabled={isSubmitting}
-                        />
-                        <span className="flex items-center rounded-r-lg border border-l-0 border-stone-200 bg-stone-100 px-3 text-center text-sm dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400">
-                          .ecomm.vercel.app
-                        </span>
-                      </div>
+                      <InputWithIndent
+                        placeholder="your-store-name"
+                        {...field}
+                        autoCapitalize="none"
+                        disabled={isSubmitting}
+                        indentvalue=".ecomm.vercel.app"
+                        direction="right"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

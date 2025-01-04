@@ -48,6 +48,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import InputWithIndent from "@/components/ui/inputWithIndent";
 
 import ProductGallery from "@/components/admin/products/ProductGallery";
 import SizesToggleInput from "@/components/admin/products/ProductSizesToggleInput";
@@ -250,16 +251,13 @@ export default function ProductAEForm({
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <div className="flex">
-                    <Input
-                      {...field}
-                      className="rounded-r-none border-r-0 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-                      disabled={isSubmitting}
-                    />
-                    <span className="flex items-center text-nowrap rounded-r-lg border border-l-0 border-stone-200 bg-stone-100 px-3 text-center font-mono text-sm dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400">
-                      $ (USD)
-                    </span>
-                  </div>
+                  <InputWithIndent
+                    {...field}
+                    indentvalue="$ (USD)"
+                    direction="right"
+                    disabled={isSubmitting}
+                    className="font-mono"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
