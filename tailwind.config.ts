@@ -67,6 +67,40 @@ export default withUt({
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      keyframes: {
+        shine: {
+          "0%": {
+            backgroundPosition: "200% 0",
+          },
+          "25%": {
+            backgroundPosition: "-200% 0",
+          },
+          "100%": {
+            backgroundPosition: "-200% 0",
+          },
+        },
+        rainbow: {
+          "0%": {
+            "background-position": "0%",
+          },
+          "100%": {
+            "background-position": "200%",
+          },
+        },
+        gradient: {
+          "0%": {
+            "background-position": "200% 0",
+          },
+          "100%": {
+            "background-position": "0 0",
+          },
+        },
+      },
+      animation: {
+        shine: "shine 1s infinite",
+        rainbow: "rainbow var(--speed, 2s) infinite linear",
+        gradient: "gradient 60s linear infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

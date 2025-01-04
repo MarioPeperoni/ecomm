@@ -1,20 +1,44 @@
-"use client";
+import Link from "next/link";
+
+import InfoCards from "@/components/home/cards/InfoCards";
+import HomeNavbar from "@/components/home/navbar/Navbar";
+import TitleBox from "@/components/home/titleBox/titleBox";
+import Footer from "@/components/store/Footer";
 
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Container from "@/components/ui/Container";
+
+import { SparklesIcon, Store } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <div>
-        <Button>
-          <Link href={"/explore"}>Explore products</Link>
-        </Button>
-        <Button>
-          <Link href={"/create"}>Create store</Link>
-        </Button>
-      </div>
-    </div>
+    <>
+      <HomeNavbar />
+      <Container>
+        <TitleBox />
+        <div className="my-10 flex justify-center">
+          <Link href={"/explore"}>
+            <Button size={"lg"} className="w-64" effect={"rainbowGlow"}>
+              <>
+                <SparklesIcon />
+                <span>Explore stores</span>
+              </>
+            </Button>
+          </Link>
+        </div>
+        <InfoCards />
+        <div className="my-10 flex justify-center">
+          <Link href={"/create"}>
+            <Button size={"lg"} className="w-64" effect={"ringHover"}>
+              <>
+                <Store />
+                <span>Create your own store!</span>
+              </>
+            </Button>
+          </Link>
+        </div>
+      </Container>
+      <Footer />
+    </>
   );
 }

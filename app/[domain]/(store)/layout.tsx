@@ -7,10 +7,10 @@ export default async function DomainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <>
       <Navbar />
       {children}
       <Footer />
-    </div>
+    </>
   );
 }
