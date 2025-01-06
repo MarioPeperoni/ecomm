@@ -62,3 +62,74 @@ export async function getRecentOrders() {
 
   return recentOrders;
 }
+
+export interface ChartData {
+  date: string;
+  [category: string]: number | string;
+}
+
+export async function getSalesData(): Promise<ChartData[]> {
+  const domain = await getDomain();
+
+  // Define the start date for the last 3 months
+  const startDate = new Date();
+  startDate.setMonth(startDate.getMonth() - 3);
+
+  // Fetch all orders and their related data
+  const orders = await prismadb.order.findMany({
+    where: {
+      Store: {
+        domain: domain,
+      },
+      isPaid: true,
+      createdAt: {
+        gte: startDate,
+      },
+    },
+    include: {
+      OrderItems: {
+        include: {
+          Product: {
+            include: {
+              Category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  // Process the data to group by date and category
+  const revenueData: Record<string, Record<string, number>> = {};
+
+  orders.forEach((order) => {
+    const date = order.createdAt.toISOString().split("T")[0];
+    order.OrderItems.forEach((item) => {
+      const category = item.Product.Category?.name || "Uncategorized";
+      const revenue = item.price * item.quantity;
+
+      if (!revenueData[date]) {
+        revenueData[date] = {};
+      }
+      if (!revenueData[date][category]) {
+        revenueData[date][category] = 0;
+      }
+
+      revenueData[date][category] += revenue;
+    });
+  });
+
+  // Convert the grouped data into chart format
+  const chartData: ChartData[] = Object.entries(revenueData).map(
+    ([date, categories]) => {
+      return {
+        date,
+        ...categories,
+      };
+    },
+  );
+
+  console.log(chartData);
+
+  return chartData;
+}

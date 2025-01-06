@@ -1,5 +1,6 @@
 import getRecentRevenue, {
   getRecentOrders,
+  getSalesData,
   getTotalStock,
 } from "@/data/overview";
 
@@ -7,11 +8,13 @@ import DashHeader from "@/components/admin/dashboard/DashHeader";
 import StatCard from "@/components/admin/overview/StatCard";
 
 import { BoxesIcon, DollarSign, Handshake } from "lucide-react";
+import SalesChart from "@/components/admin/overview/SalesChart";
 
 export default async function AdminDashboardPage() {
   const recentRevenue = await getRecentRevenue();
   const recentOrders = await getRecentOrders();
   const totalStock = await getTotalStock();
+  const salesData = await getSalesData();
 
   return (
     <>
@@ -32,6 +35,7 @@ export default async function AdminDashboardPage() {
           icon={BoxesIcon}
           value={`${totalStock}`}
         />
+        <SalesChart salesData={salesData} />
       </section>
     </>
   );
