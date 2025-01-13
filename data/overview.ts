@@ -129,7 +129,8 @@ export async function getSalesData(): Promise<ChartData[]> {
     },
   );
 
-  console.log(chartData);
+  // Order the data by date
+  chartData.sort((a, b) => a.date.localeCompare(b.date));
 
   return chartData;
 }
